@@ -53,9 +53,9 @@ if (isset($_SESSION['nomeUsuario'])) {
                     <a href="gerenciar_tipo_sub.php">Tipo e subtipo</a>
                 </li>
 
-                <li>
+                <li onclick="window.location.href = 'gerenciar_entidade.php'">
                     <i class="fas fa-money-check"></i>
-                    <a href="#">Entidade</a>
+                    <a href="gerenciar_entidade.php">Entidade</a>
                 </li>
               
               </ul>
@@ -91,6 +91,8 @@ if (isset($_SESSION['nomeUsuario'])) {
         </div>
       </div>
  
+ <!--Mascara-->
+ <script src="../js/mascaras.js"></script>  
 
 <!--Jquery datatables-->
 <script src="../js/jquery-3.4.1.min.js"></script>  

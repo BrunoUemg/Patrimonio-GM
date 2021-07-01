@@ -53,9 +53,9 @@ if (isset($_SESSION['nomeUsuario'])) {
                     <a href="view/gerenciar_tipo_sub.php">Tipo e subtipo</a>
                 </li>
 
-                <li>
+                <li onclick="window.location.href = 'view/gerenciar_entidade.php'">
                     <i class="fas fa-money-check"></i>
-                    <a href="#">Entidade</a>
+                    <a href="view/gerenciar_entidade.php">Entidade</a>
                 </li>
              
               </ul>
