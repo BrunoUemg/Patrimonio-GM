@@ -40,27 +40,24 @@ if (isset($_SESSION['nomeUsuario'])) {
                     <i class="fas fa-university">
                     <a href="view/gerenciar_patrimonio.php"></i>Patrimônio</a>
                   </li>
-                  <li id="">
+                  <li id="" onclick="window.location.href = 'view/gerenciar_unidade.php'">
                     <i class="far fa-building"></i>
-                    <a href="#">Unidade</a>
+                    <a href="view/gerenciar_unidade.php">Unidade</a>
                 </li>
-                <li>
-                    <i class="fas fa-user"></i>
-                    <a href="#">Sala</a>
+                <li onclick="window.location.href = 'view/gerenciar_sala.php'">
+                <i class="fas fa-house-user"></i>
+                    <a href="gerenciar_sala.php">Sala</a>
                 </li>
-                <li>
-                    <i class="fas fa-money-check"></i>
-                    <a href="#">Tipo e subtipo</a>
+                <li onclick="window.location.href = 'view/gerenciar_tipo_sub.php'"> 
+                <i class="fas fa-tags"></i>
+                    <a href="view/gerenciar_tipo_sub.php">Tipo e subtipo</a>
                 </li>
 
                 <li>
                     <i class="fas fa-money-check"></i>
                     <a href="#">Entidade</a>
                 </li>
-                <li>
-                    <i class="fas fa-money-check"></i>
-                    <a href="#">Status</a>
-                </li>
+             
               </ul>
           </div>
         </sidebar>

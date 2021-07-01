@@ -17,7 +17,7 @@
         <p class="text-white">Sistema de patrimônio</p>
     </div>
     <div class="login-continue">
-        <h3>Login</h3>
+        <h3>Entrar no sistema</h3>
         <?php 
 
 if(isset($_SESSION['invalido'])){
@@ -26,7 +26,7 @@ if(isset($_SESSION['invalido'])){
 }
 ?>
         <form action="dao/valida.php" method="POST">
-            <label for="">Login</label>
+            <label for="">Usuario</label>
             <input type="text" required class="form-control" name="userAcesso" id="">
             <label for="">Senha</label>
             <input type="password" required name="senha" class="form-control" id="">
