@@ -91,6 +91,15 @@ if (isset($_SESSION['nomeUsuario'])) {
         </div>
       </div>
  
+
+
+      <script type="text/javascript" src="../js/loader.js"></script>
+		<script src="../js/jquery.min.js"></script>
+		<!-- onde faz o reload dos selects -->
+		<script type="text/javascript" src="../js/reload_jquery.js">
+
+		</script>
+ 
  <!--Mascara-->
  <script src="../js/mascaras.js"></script>  
 

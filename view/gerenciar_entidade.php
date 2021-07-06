@@ -13,6 +13,7 @@ include_once "sidebar.php";
                 <div class="alert alert-success" role="alert">
                     Gerenciar Entidade
                    </div>
+                   <p>Entidades são os cadastros de todas as empresas ou instituições que foram comprados ou doados os patrimônios.</p>
               </div>
             </div>
         </main>
