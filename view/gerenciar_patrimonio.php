@@ -11,7 +11,8 @@ include_once "sidebar.php";
                   <button class="btn-panel" onclick="window.location.href = 'consultar_patrimonio.php'">Visualizar Patrimonio</button>
               </div>
               <div class="panel-row">
-                  <button class="btn-panel" type="button" onclick="window.location.href = 'cadastrar_patrimonio.php'">Visualizar Patrimônio baixado</button>
+                  <button class="btn-panel" type="button" onclick="window.location.href = 'patrimonio_baixado_pendente.php'">Baixados pendentes</button>
+                  <button class="btn-panel" type="button" onclick="window.location.href = 'consultar_patrimonio_baixado.php'">Visualizar Patrimônio baixado</button>
                  
                 
               </div>

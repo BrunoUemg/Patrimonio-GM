@@ -2,7 +2,7 @@
 
 include_once "sidebar.php";
 
-$result_unidade = "SELECT * FROM unidade";
+$result_unidade = "SELECT * FROM unidade U INNER JOIN entidade E ON E.idEntidade = U.idEntidade";
 $resultado_unidade = mysqli_query($con, $result_unidade);
 
 ?>
@@ -20,6 +20,7 @@ $resultado_unidade = mysqli_query($con, $result_unidade);
                         <tr>
                             <th>Código</th>
                             <th>Nome da unidade</th>
+                            <th>Entidade</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -28,6 +29,7 @@ $resultado_unidade = mysqli_query($con, $result_unidade);
                         <tr>
                             <td><?php echo $rows_unidade['idUnidade']; ?></td>
                             <td><?php echo $rows_unidade['nomeUnidade']; ?></td>
+                            <td><?php echo $rows_unidade['nomeFantasia']; ?></td>
                             <td>
                             <a class="btn btn-primary" data-bs-toggle="modal" href="#alterar<?php echo $rows_unidade['idUnidade']; ?>" role="button"><i class="fa fa-edit"></i></a>
                             <?php  echo "<a  class='btn btn-danger' title='Excluir' href='../dao/excluir_unidade.php?idUnidade=" .$rows_unidade['idUnidade']. "' onclick=\"return confirm('Tem certeza que deseja deletar esse registro?');\">"?> <i class='fas fa-trash-alt'></i><?php echo "</a>";  ?>

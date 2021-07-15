@@ -18,13 +18,14 @@ $idUsuario = $linha['idUsuario'];
 $nomeUsuario = $linha['nomeUsuario'];
 $userAcesso_db = $linha['userAcesso'];
 $senha_db = $linha['senha'];
+$acesso = $linha['acesso'];
 
 if($userAcesso_db = $userAcesso && password_verify($senha,$senha_db) ){
     session_start();
 
     $_SESSION['nomeUsuario'] = $nomeUsuario;
     $_SESSION['idUsuario'] = $idUsuario;
-    
+    $_SESSION['acesso'] = $acesso;
     header('location: ../index.php');
 
 }else{

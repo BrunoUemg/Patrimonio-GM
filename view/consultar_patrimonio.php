@@ -5,7 +5,7 @@ include_once "sidebar.php";
 
 $result_patrimonio = "SELECT * FROM patrimonio P INNER JOIN sala S ON S.idSala = P.idSala 
 INNER JOIN entidade E ON E.idEntidade = P.idEntidade INNER JOIN status T ON T.id = P.idStatus
-INNER JOIN subtipo U ON U.idSubtipo = P.idSubtipo where T.nome != 'Desuso'";
+INNER JOIN subtipo U ON U.idSubtipo = P.idSubtipo INNER JOIN unidade I ON I.idUnidade = S.idUnidade where T.nome != 'Desuso'";
 $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
 ?>
 <style type="text/css">
@@ -19,6 +19,8 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
     }
 		</style>
 
+
+
 <div class="main-content">
               <div class="panel-row">
                   <button class="btn-panel" type="button" onclick="window.location.href = 'cadastrar_patrimonio.php'">Cadastrar Patrimônio</button>
@@ -26,6 +28,12 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
                   
               </div>
               <div class="painel-acoes">
+              <?php include_once("../dao/conexao.php"); 
+				if(!empty($_SESSION['msg'])){
+					echo $_SESSION['msg'];
+					unset($_SESSION['msg']);
+				}
+			?>
                     <!--ambiente onde fica as tabelas e formularios-->
                 <div class="table-responsive">
                 <table id="basic-datatables" class="table table-bordered">
@@ -33,6 +41,7 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
                         <tr>
                             <th>Descrição</th>
                             <th>Código Patrimonio</th>
+                            <th>Entidade</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -41,9 +50,14 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
                         <tr>
                         <td><?php echo $rows_patrimonio['descricaoPatrimonio']; ?></td>
                             <td><?php echo $rows_patrimonio['codigoPatrimonio']; ?></td>
+                            <td><?php echo $rows_patrimonio['nomeFantasia']; ?></td>
                            
                             <td>
                             <a class="btn btn-primary" data-bs-toggle="modal" href="#alterar<?php echo $rows_patrimonio['idPatrimonio']; ?>" role="button"><i class="fa fa-edit"></i></a>
+                            <a class="btn btn-primary" data-bs-toggle="modal" target="_blank" href="<?php echo '../foto_patrimonio/'. $rows_patrimonio['fotoPatrimonio']; ?>" role="button">Foto</a>
+                            <a class="btn btn-primary" data-bs-toggle="modal" target="_blank" href="<?php echo '../foto_patrimonio/'. $rows_patrimonio['fotoPatrimonio']; ?>" role="button">Nota fiscal</a>
+                            <?php  echo "<a  class='btn btn-primary' title='baixa' href='../dao/envio_baixa_patrimonio.php?idPatrimonio=" .$rows_patrimonio['idPatrimonio']. "' onclick=\"return confirm('Tem certeza que deseja dar baixa nesse patrmiônio? ele ficará como pendente');\">"?> <i class="fas fa-arrow-down"></i><?php echo "</a>";  ?>
+                            <?php  echo "<a  class='btn btn-danger' title='Excluir' href='../funcoes/imprimir_historico_movimentacoes.php?idPatrimonio=" .$rows_patrimonio['idPatrimonio']. "'>"?> Histórico<?php echo "</a>";  ?>
                             
                             
                             
@@ -92,18 +106,7 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
                                  </select>
                                 </div>
 
-                                <div class="col">
-                                <label for="">Entidade</label>
-                                <select name="idEntidade" class="form-control" id="">
-                                <?php 
-                                $result_entidade = "SELECT * FROM entidade";
-                                $resultado_entidade = mysqli_query($con, $result_entidade); 
-                                   while($rows_entidade = mysqli_fetch_assoc($resultado_entidade)){     ?>
-                               
-                                    <option value="<?php echo $rows_entidade['idEntidade']; ?>"<?php if($rows_entidade['idEntidade'] == $rows_patrimonio['idEntidade']) echo 'selected' ?>><?php echo $rows_entidade['nomeFantasia']; ?> </option>
-                                <?php } ?>
-                                 </select>
-                                </div>
+                                
                                 </div>
                                 <div class="row">
                                 
@@ -132,7 +135,7 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
                                <option value="Regular"<?php if($rows_patrimonio['conservacao'] == 'Regular') echo 'selected'; ?>>Regular</option>
                                <option value="Ruim"<?php if($rows_patrimonio['conservacao'] == 'Ruim') echo 'selected'; ?>>Ruim</option>
                                <option value="Sucata"<?php if($rows_patrimonio['conservacao'] == 'Sucata') echo 'selected'; ?>>Sucata</option>
-                           </select>
+                </select>
                                 </div>
                                 </div>
                                 
@@ -141,79 +144,30 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
                                 <input type="submit" class="btn btn-success" value="Alterar">
                                 </div> 
                                 </form>
-
-
-
-                                <!-- movimentação -->
-                                <hr>
-                                <div class="modal-body">
-                                <form action="../dao/envio_alterar_patrimonio.php" method="POST">
-                                <center><h4>Movimentar patrimônio</h4></center>
-                                <?php 
-                                 $select_sala = "SELECT * FROM sala INNER JOIN unidade ON unidade.idUnidade = sala.idUnidade where idSala = '$rows_patrimonio[idSala]'";
-                                 $res = $con->query($select_sala);
-                                 $linha_sala = $res->fetch_assoc();
+    
+                           
                                 
-                                ?>
-                                <input type="text" hidden readOnly name="idPatrimonio" value="<?php echo $rows_patrimonio['idPatrimonio']; ?>">
-                                
-                                <div class="row">
-                                <div class="col">
-                                <label for="">Unidade atual</label>
-                                <input type="text" name="" readOnly id="" class="form-control" value="<?php echo $linha_sala['nomeUnidade']; ?>">
-                                </div>
-                                <div class="col">
-                                <label for="">Sala atual</label>
-                                <input type="text" name="" readOnly id="" class="form-control" value="<?php echo $linha_sala['nomeSala']; ?>">
-                                </div>
-                                </div>
-                                <div class="row">
-                                <div class="col">
-                                <label for="">Alterar unidade do patrimônio</label>   
-                                <select name="idUnidade" required="required" class="form-control" id="idUnidade">
-                                <option value="">Selecione</option>
-
-
-                                <?php 
-                               
-                               
-
-                                $result_unidade = "SELECT * FROM unidade";
-                                $resultado_unidade = mysqli_query($con, $result_unidade); 
-                                   while($rows_unidade = mysqli_fetch_assoc($resultado_unidade)){     
-                               
-                                 echo '<option value="'.$rows_unidade['idUnidade'].'">'.$rows_unidade['nomeUnidade'].'</option>';
-                                 } ?>
-                                </select>
-                                </div>
-                              
-                                <div class="col">
-                                <label>Alterar sala</label>
-                                <span class="carregando">
-                                Ops, sem sala nessa unidade, campo obrigatório!
-                                </span>
-                                <span id="span"></span>
-                               <select name="idSala" required="required"  class="form-control" id="idSala">
-                              <option value="">Escolha a sala</option>
-                               </select>
-                               </div>
-                               </div>
-                               <br>
-                               <input type="submit" class="btn btn-success" value="Movimentar">
-                                </div>
-                                <div class="modal-footer">
-                                
-                                <button class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Fechar</button>
-                                </div>
-                                </form>
-                                </div>
                             </div>
                             </div>
+
+                           
 
 
                             
                             </td>
+
+
+                            </td>
+
+
+
+
+
+
                         </tr>
+
+
+
             
                       <?php } ?>
                     </tbody>

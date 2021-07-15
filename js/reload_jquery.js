@@ -1,5 +1,27 @@
 
 // reload da unidade e sala 
+
+$(function(){
+    $('#idEntidade').change(function(){
+        if( $(this).val() ) {
+            $('#idUnidade').hide();
+            $('.carregando').show();
+            $.getJSON('../dao/unidade_post.php?search=',{idEntidade: $(this).val(), ajax: 'true'}, function(j){
+                var options = '<option value="">Escolha a unidade</option>';	
+                for (var i = 0; i < j.length; i++) {
+                    options += '<option value="' + j[i].id + '">' + j[i].nome + '</option>';
+                }	
+                $('#idUnidade').html(options).show();
+                $('.carregando').hide();
+            });
+        } else {
+            $('#idUnidade').html('<option value="">– Escolha a unidade –</option>');
+           
+        }
+    });
+});
+
+
 $(function(){
     $('#idUnidade').change(function(){
         if( $(this).val() ) {

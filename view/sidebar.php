@@ -40,6 +40,12 @@ if (isset($_SESSION['nomeUsuario'])) {
                     <i class="fas fa-university">
                     <a href="gerenciar_patrimonio.php"></i>Patrimônio</a>
                   </li>
+
+                  <li onclick="window.location.href = 'gerenciar_entidade.php'">
+                <i class="fas fa-university"></i>
+                    <a href="gerenciar_entidade.php">Entidade</a>
+                </li>
+
                   <li id="" onclick="window.location.href = 'gerenciar_unidade.php'">
                     <i class="far fa-building"></i>
                     <a href="gerenciar_unidade.php">Unidade</a>
@@ -53,9 +59,10 @@ if (isset($_SESSION['nomeUsuario'])) {
                     <a href="gerenciar_tipo_sub.php">Tipo e subtipo</a>
                 </li>
 
-                <li onclick="window.location.href = 'gerenciar_entidade.php'">
-                    <i class="fas fa-money-check"></i>
-                    <a href="gerenciar_entidade.php">Entidade</a>
+               
+                <li onclick="window.location.href = 'gerenciar_usuario.php'">
+                    <i class="fas fa-user"></i>
+                    <a href="gerenciar_usuario.php">Usuário</a>
                 </li>
               
               </ul>
@@ -66,6 +73,9 @@ if (isset($_SESSION['nomeUsuario'])) {
             <!--Topo da pagina-->
             <header>
                 <i id="iconMenu" onclick="responsiveSideBar()"  class="fas fa-bars"></i>
+               
+               
+
                <a  data-bs-toggle="modal" data-bs-target="#saida"><i class="fas fa-sign-out-alt"></i>Sair</a>
               
             </header>

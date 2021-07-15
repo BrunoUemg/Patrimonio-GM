@@ -8,7 +8,7 @@ $resultada_final_unidade = mysqli_query($con, $resultado_unidade);
 
 
 
-$result_status = "SELECT * FROM status";
+$result_status = "SELECT * FROM status where id != 2";
 $resultado_status = mysqli_query($con, $result_status);
 
 $result_entidade = "SELECT * FROM entidade";
@@ -21,6 +21,10 @@ $resultado_entidade = mysqli_query($con, $result_entidade);
 				display:none;
 			}
       .carregando2{
+			
+      display:none;
+    }
+      .carregando3{
 			
       display:none;
     }
@@ -38,39 +42,51 @@ $resultado_entidade = mysqli_query($con, $result_entidade);
 					unset($_SESSION['msg']);
 				}
 			?>
-                <form method="POST" action="../dao/envio_cadastro_patrimonio.php">
+                <form method="POST" action="../dao/envio_cadastro_patrimonio.php"  enctype="multipart/form-data">
                    
                    <div class="row">
                    <div class="col">
                         <label for="">Descrição do patrimônio</label>
                         <input type="text" name="descricaoPatrimonio" class="form-control" id="">
                         </div>
-                   </div>
+                   
+                        <div class="col">
+                    <label for="">Código do patrimonio (etiqueta)</label>
+                    <input type="text" required="required" class="form-control" name="codigoPatrimonio" id="">
+                    </div>
+                   
+                      </div>
                    
                     <div class="row">
 
 
-                   
-
-
                     <div class="col">
-                    <label for="">Código do patrimonio (etiqueta)</label>
-                    <input type="text" required="required" class="form-control" name="codigoPatrimonio" id="">
-                    </div>
+                          <label for="">Entidade</label>
+                      
+                          <select name="idEntidade" class="form-control" id="idEntidade">
+                <option value="">Escolha a entidade</option>
+                <?php
+                  $result_entidade = "SELECT * FROM entidade ORDER BY nomeFantasia";
+                  $resultado_entidade = mysqli_query($con, $result_entidade);
+                  while($row_entidade = mysqli_fetch_assoc($resultado_entidade) ) {
+                    echo '<option value="'.$row_entidade['idEntidade'].'">'.$row_entidade['nomeFantasia'].'</option>';
+                  }
+                ?>
+              </select>
+                              </div>
+
+
+                 
 
 
                     <div class="col">
                           <label for="">Unidade</label>
-                      
+                          <span class="carregando3"><div class="alert alert-danger" role="alert">
+                        Ops, sem sala nessa unidade, campo obrigatório!
+                  </div></span>
+                  <span id="span"></span>
                           <select name="idUnidade" class="form-control" id="idUnidade">
                 <option value="">Escolha a unidade</option>
-                <?php
-                  $result_unidade = "SELECT * FROM unidade ORDER BY nomeUnidade";
-                  $resultado_unidade = mysqli_query($con, $result_unidade);
-                  while($row_unidade = mysqli_fetch_assoc($resultado_unidade) ) {
-                    echo '<option value="'.$row_unidade['idUnidade'].'">'.$row_unidade['nomeUnidade'].'</option>';
-                  }
-                ?>
               </select>
                               </div>
                           
@@ -110,16 +126,7 @@ $resultado_entidade = mysqli_query($con, $result_entidade);
                                 } ?>
                            </select>
                         </div>
-                        <div class="col">
-                            <label for="">Entidade</label>
-                           <select name="idEntidade"  class="form-control" id="">
-                               <option value="">Selecione</option>
-                               <?php
-                               while($rows_entidade = mysqli_fetch_assoc($resultado_entidade) ) {
-                              echo '<option value="'.$rows_entidade['idEntidade'].'">'.$rows_entidade['nomeFantasia'].'</option>';
-                                } ?>
-                           </select>
-                        </div>
+                       
                         <div class="col">
                         <label for="">Nota fiscal</label>
                         <input type="text" name="notaFiscal" class="form-control" id="">
@@ -151,6 +158,17 @@ $resultado_entidade = mysqli_query($con, $result_entidade);
                   <select name="idSubtipo" required="required" class="form-control" id="idSubtipo">
                     <option value="">Escolha o subtipo</option>
                   </select>
+                      </div>
+
+                      <div class="col">
+                  <label for="">Nota fiscal</label>
+                  <input type="file" name="comprovanteFiscal" class="form-control" id="">
+
+                      </div>
+                      <div class="col">
+                  <label for="">Foto do patrimônio</label>
+                  <input type="file" required name="fotoPatrimonio" class="form-control" id="">
+
                       </div>
 
                     </div>

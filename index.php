@@ -29,7 +29,7 @@ if (isset($_SESSION['nomeUsuario'])) {
     <div class="flex-dashboard">
         <!--Barra lateral-->
         <sidebar id="sideBar">
-          <div class="sidebar-title" onclick="window.location.href = 'header.html'">
+          <div class="sidebar-title" onclick="window.location.href = 'index.php'">
               <img src="img/logo.png" alt="">
               <h2 >Patrimônio</h2>
           </div>
@@ -40,6 +40,10 @@ if (isset($_SESSION['nomeUsuario'])) {
                     <i class="fas fa-university">
                     <a href="view/gerenciar_patrimonio.php"></i>Patrimônio</a>
                   </li>
+                  <li onclick="window.location.href = 'view/gerenciar_entidade.php'">
+                <i class="fas fa-university"></i>
+                    <a href="view/gerenciar_entidade.php">Entidade</a>
+                </li>
                   <li id="" onclick="window.location.href = 'view/gerenciar_unidade.php'">
                     <i class="far fa-building"></i>
                     <a href="view/gerenciar_unidade.php">Unidade</a>
@@ -53,10 +57,12 @@ if (isset($_SESSION['nomeUsuario'])) {
                     <a href="view/gerenciar_tipo_sub.php">Tipo e subtipo</a>
                 </li>
 
-                <li onclick="window.location.href = 'view/gerenciar_entidade.php'">
-                    <i class="fas fa-money-check"></i>
-                    <a href="view/gerenciar_entidade.php">Entidade</a>
+              
+                <li onclick="window.location.href = 'view/gerenciar_usuario.php'">
+                    <i class="fas fa-user"></i>
+                    <a href="view/gerenciar_usuario.php">Usuário</a>
                 </li>
+                
              
               </ul>
           </div>

@@ -2,7 +2,7 @@
 
 include_once "sidebar.php";
 
-$result_sala = "SELECT * FROM sala S INNER JOIN unidade U ON U.idUnidade = S.idUnidade ";
+$result_sala = "SELECT * FROM sala S INNER JOIN unidade U ON U.idUnidade = S.idUnidade INNER JOIN entidade E ON E.idEntidade = U.idEntidade ";
 $resultado_sala = mysqli_query($con, $result_sala);
 
 ?>
@@ -21,6 +21,7 @@ $resultado_sala = mysqli_query($con, $result_sala);
                             <th>Código</th>
                             <th>Nome da Sala</th>
                             <th>Nome da Unidade</th>
+                            <th>Entidade</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -30,6 +31,7 @@ $resultado_sala = mysqli_query($con, $result_sala);
                             <td><?php echo $rows_sala['idSala']; ?></td>
                             <td><?php echo $rows_sala['nomeSala']; ?></td>
                             <td><?php echo $rows_sala['nomeUnidade']; ?></td>
+                            <td><?php echo $rows_sala['nomeFantasia']; ?></td>
                             <td>
                             <a class="btn btn-primary" data-bs-toggle="modal" href="#alterar<?php echo $rows_sala['idSala']; ?>" role="button"><i class="fa fa-edit"></i></a>
                             <?php  echo "<a  class='btn btn-danger' title='Excluir' href='../dao/excluir_sala.php?idSala=" .$rows_sala['idSala']. "' onclick=\"return confirm('Tem certeza que deseja deletar esse registro?');\">"?> <i class='fas fa-trash-alt'></i><?php echo "</a>";  ?>
@@ -53,7 +55,7 @@ $resultado_sala = mysqli_query($con, $result_sala);
                                 <select name="idUnidade" required="required" class="form-control" id="">
                                 <option value="">Selecione</option>
                                 <?php 
-                                $result_unidade = "SELECT * FROM unidade ";
+                                $result_unidade = "SELECT * FROM unidade where idEntidade = $rows_sala[idEntidade] ";
                                 $resultado_unidade = mysqli_query($con, $result_unidade); 
                                    while($rows_unidade = mysqli_fetch_assoc($resultado_unidade)){     
                                 ?>
