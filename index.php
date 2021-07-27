@@ -34,10 +34,11 @@ if (isset($_SESSION['nomeUsuario'])) {
               <h2 >Patrimônio</h2>
           </div>
           <!--Menu da barra lateral-->
+         <?php if($_SESSION['acesso'] == 1){ ?>
           <div class="menu">
               <ul>
                 <li onclick="window.location.href = 'view/gerenciar_patrimonio.php'">
-                    <i class="fas fa-university">
+                <i class="fas fa-chair"></i>
                     <a href="view/gerenciar_patrimonio.php"></i>Patrimônio</a>
                   </li>
                   <li onclick="window.location.href = 'view/gerenciar_entidade.php'">
@@ -56,6 +57,18 @@ if (isset($_SESSION['nomeUsuario'])) {
                 <i class="fas fa-tags"></i>
                     <a href="view/gerenciar_tipo_sub.php">Tipo e subtipo</a>
                 </li>
+                <li onclick="window.location.href = 'view/movimentacao_patrimonio.php'"> 
+                <i class="fas fa-exchange-alt"></i>
+                    <a href="view/movimentacao_patrimonio.php">Movimentar patrimônio</a>
+                </li>
+                <li onclick="window.location.href = 'view/gerenciar_relatorios.php'"> 
+                <i class="fas fa-file-pdf"></i>
+                    <a href="view/gerenciar_relatorios.php">Relatórios</a>
+                </li>
+                <li onclick="window.location.href = 'view/gerenciar_iventario.php'"> 
+                <i class="fas fa-map-marked-alt"></i>
+                    <a href="view/gerenciar_iventario.php">Iventários</a>
+                </li>
 
               
                 <li onclick="window.location.href = 'view/gerenciar_usuario.php'">
@@ -66,6 +79,46 @@ if (isset($_SESSION['nomeUsuario'])) {
              
               </ul>
           </div>
+          <?php }?>
+         <?php if($_SESSION['acesso'] == 2){ ?>
+          <div class="menu">
+              <ul>
+                <li onclick="window.location.href = 'view/gerenciar_patrimonio.php'">
+                <i class="fas fa-chair"></i>
+                    <a href="view/gerenciar_patrimonio.php"></i>Patrimônio</a>
+                  </li>
+                  
+                <li onclick="window.location.href = 'view/gerenciar_sala.php'">
+                <i class="fas fa-house-user"></i>
+                    <a href="gerenciar_sala.php">Sala</a>
+                </li>
+                <li onclick="window.location.href = 'view/gerenciar_tipo_sub.php'"> 
+                <i class="fas fa-tags"></i>
+                    <a href="view/gerenciar_tipo_sub.php">Tipo e subtipo</a>
+                </li>
+                <li onclick="window.location.href = 'view/movimentacao_patrimonio.php'"> 
+                <i class="fas fa-exchange-alt"></i>
+                    <a href="view/movimentacao_patrimonio.php">Movimentar patrimônio</a>
+                </li>
+                <li onclick="window.location.href = 'view/gerenciar_relatorios.php'"> 
+                <i class="fas fa-file-pdf"></i>
+                    <a href="view/gerenciar_relatorios.php">Relatórios</a>
+                </li>
+                <li onclick="window.location.href = 'view/gerenciar_iventario.php'"> 
+                <i class="fas fa-map-marked-alt"></i>
+                    <a href="view/gerenciar_iventario.php">Iventários</a>
+                </li>
+
+              
+                <li onclick="window.location.href = 'view/gerenciar_usuario.php'">
+                    <i class="fas fa-user"></i>
+                    <a href="view/gerenciar_usuario.php">Usuário</a>
+                </li>
+                
+             
+              </ul>
+          </div>
+          <?php }?>
         </sidebar>
         <!--Todo conteudo da pagina-->
         <main id="mainContent">

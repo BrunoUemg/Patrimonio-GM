@@ -34,10 +34,12 @@ if (isset($_SESSION['nomeUsuario'])) {
               <h2 >Patrimônio</h2>
           </div>
           <!--Menu da barra lateral-->
+
+          <?php if($_SESSION['acesso'] == 1){ ?>
           <div class="menu">
               <ul>
                 <li onclick="window.location.href = 'gerenciar_patrimonio.php'">
-                    <i class="fas fa-university">
+                <i class="fas fa-chair"></i>
                     <a href="gerenciar_patrimonio.php"></i>Patrimônio</a>
                   </li>
 
@@ -58,6 +60,19 @@ if (isset($_SESSION['nomeUsuario'])) {
                 <i class="fas fa-tags"></i>
                     <a href="gerenciar_tipo_sub.php">Tipo e subtipo</a>
                 </li>
+                <li onclick="window.location.href = 'movimentacao_patrimonio.php'"> 
+                <i class="fas fa-exchange-alt"></i>
+                    <a href="movimentacao_patrimonio.php">Movimentar patrimônio</a>
+                </li>
+                <li onclick="window.location.href = 'gerenciar_relatorios.php'"> 
+                <i class="fas fa-file-pdf"></i>
+                    <a href="gerenciar_relatorios.php">Relatórios</a>
+                </li>
+                <li onclick="window.location.href = 'gerenciar_iventario.php'"> 
+                <i class="fas fa-map-marked-alt"></i>
+                    <a href="gerenciar_iventario.php">Iventários</a>
+                </li>
+
 
                
                 <li onclick="window.location.href = 'gerenciar_usuario.php'">
@@ -67,6 +82,47 @@ if (isset($_SESSION['nomeUsuario'])) {
               
               </ul>
           </div>
+          <?php }?>
+          <?php if($_SESSION['acesso'] == 2){ ?>
+          <div class="menu">
+              <ul>
+                <li onclick="window.location.href = 'gerenciar_patrimonio.php'">
+                <i class="fas fa-chair"></i>
+                    <a href="gerenciar_patrimonio.php"></i>Patrimônio</a>
+                  </li>
+
+                 
+                <li onclick="window.location.href = 'gerenciar_sala.php'">
+                <i class="fas fa-house-user"></i>
+                    <a href="gerenciar_sala.php">Sala</a>
+                </li>
+                <li onclick="window.location.href = 'gerenciar_tipo_sub.php'"> 
+                <i class="fas fa-tags"></i>
+                    <a href="gerenciar_tipo_sub.php">Tipo e subtipo</a>
+                </li>
+                <li onclick="window.location.href = 'movimentacao_patrimonio.php'"> 
+                <i class="fas fa-exchange-alt"></i>
+                    <a href="movimentacao_patrimonio.php">Movimentar patrimônio</a>
+                </li>
+                <li onclick="window.location.href = 'gerenciar_relatorios.php'"> 
+                <i class="fas fa-file-pdf"></i>
+                    <a href="gerenciar_relatorios.php">Relatórios</a>
+                </li>
+                <li onclick="window.location.href = 'gerenciar_iventario.php'"> 
+                <i class="fas fa-map-marked-alt"></i>
+                    <a href="gerenciar_iventario.php">Iventários</a>
+                </li>
+
+
+               
+                <li onclick="window.location.href = 'gerenciar_usuario.php'">
+                    <i class="fas fa-user"></i>
+                    <a href="gerenciar_usuario.php">Usuário</a>
+                </li>
+              
+              </ul>
+          </div>
+          <?php }?>
         </sidebar>
         <!--Todo conteudo da pagina-->
         <main id="mainContent">
@@ -74,7 +130,7 @@ if (isset($_SESSION['nomeUsuario'])) {
             <header>
                 <i id="iconMenu" onclick="responsiveSideBar()"  class="fas fa-bars"></i>
                
-               
+               <p>Olá, <?php echo $_SESSION['nomeUsuario']; ?></p>
 
                <a  data-bs-toggle="modal" data-bs-target="#saida"><i class="fas fa-sign-out-alt"></i>Sair</a>
               
@@ -101,7 +157,20 @@ if (isset($_SESSION['nomeUsuario'])) {
         </div>
       </div>
  
-
+      <style type="text/css">
+			.carregando{
+			
+				display:none;
+			}
+      .carregando2{
+			
+      display:none;
+    }
+      .carregando3{
+			
+      display:none;
+    }
+		</style>     
 
       <script type="text/javascript" src="../js/loader.js"></script>
 		<script src="../js/jquery.min.js"></script>

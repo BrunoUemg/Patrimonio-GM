@@ -46,8 +46,11 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
                         </tr>
                     </thead>
                     <tbody>
-                    <?php while($rows_patrimonio = mysqli_fetch_assoc($resultado_patrimonio)){ ?>
-                        <tr>
+                    <?php while($rows_patrimonio = mysqli_fetch_assoc($resultado_patrimonio)){ 
+                        
+                    if($_SESSION['idEntidade'] == $rows_patrimonio['idEntidade'] || $_SESSION['idEntidade'] == 0){  
+                      ?>
+                      <tr>
                         <td><?php echo $rows_patrimonio['descricaoPatrimonio']; ?></td>
                             <td><?php echo $rows_patrimonio['codigoPatrimonio']; ?></td>
                             <td><?php echo $rows_patrimonio['nomeFantasia']; ?></td>
@@ -169,7 +172,7 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
 
 
             
-                      <?php } ?>
+                      <?php } } ?>
                     </tbody>
                 </table>
                 </div>

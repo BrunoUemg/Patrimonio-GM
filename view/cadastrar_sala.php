@@ -25,17 +25,34 @@ $resultada_final_unidade = mysqli_query($con, $resultado_unidade);
                         
                       </div>
                       <div class="col">
-                          <label for="">Unidade dessa sala</label>
-                      
-                        <select name="idUnidade" class="form-control" id="">
-                        <option value="">Selecione</option>
-                        <?php while( $rows_unidade = mysqli_fetch_assoc($resultada_final_unidade)){ ?>                            
-                        <option value="<?php echo $rows_unidade['idUnidade'] ?>"><?php echo $rows_unidade['nomeUnidade']; ?></option>
-                        <?php } ?>
-                        </select>
-                            
-                        
-                      </div>
+                <label for="">Entidade</label>
+            
+                <select name="idEntidade" class="form-control" id="idEntidade">
+            <option value="">Escolha a entidade</option>
+            <?php
+            $result_entidade = "SELECT * FROM entidade ORDER BY nomeFantasia";
+            $resultado_entidade = mysqli_query($con, $result_entidade);
+            while($row_entidade = mysqli_fetch_assoc($resultado_entidade) ) {
+            echo '<option value="'.$row_entidade['idEntidade'].'">'.$row_entidade['nomeFantasia'].'</option>';
+            }
+            ?>
+            </select>
+                    </div>
+
+
+
+
+
+            <div class="col">
+                <label for="">Unidade</label>
+                <span class="carregando3"><div class="alert alert-danger" role="alert">
+                Ops, sem sala nessa unidade, campo obrigatório!
+            </div></span>
+            <span id="span"></span>
+                <select name="idUnidade" class="form-control" id="idUnidade">
+            <option value="">Escolha a unidade</option>
+            </select>
+                    </div>
                      
                     </div>
                     <br>
