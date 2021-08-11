@@ -26,8 +26,13 @@ $resultado_sala = mysqli_query($con, $result_sala);
                         </tr>
                     </thead>
                     <tbody>
-                    <?php while($rows_sala = mysqli_fetch_assoc($resultado_sala)){ ?>
-                        <tr>
+                    <?php while($rows_sala = mysqli_fetch_assoc($resultado_sala)){ 
+                        if($_SESSION['idEntidade'] == $rows_sala['idEntidade'] || $_SESSION['idEntidade'] == 0){
+                      ?>
+                      
+                      
+                      
+                      <tr>
                             <td><?php echo $rows_sala['idSala']; ?></td>
                             <td><?php echo $rows_sala['nomeSala']; ?></td>
                             <td><?php echo $rows_sala['nomeUnidade']; ?></td>
@@ -77,7 +82,7 @@ $resultado_sala = mysqli_query($con, $result_sala);
                             
                             </td>
                         </tr>
-            <?php } ?>
+            <?php } } ?>
 
                     </tbody>
                 </table>

@@ -3,7 +3,7 @@
 include_once "sidebar.php";
 
 
-$result_patrimonio = "SELECT * FROM patrimonio_baixado B INNER JOIN patrimonio P ON B.idPatrimonio= P.idPatrimonio";
+$result_patrimonio = "SELECT * FROM patrimonio_baixado B INNER JOIN patrimonio P ON B.idPatrimonio= P.idPatrimonio INNER JOIN entidade E ON P.idEntidade = E.idEntidade";
 $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
 ?>
 <style type="text/css">
@@ -45,7 +45,7 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
                     <tbody>
                     <?php while($rows_patrimonio = mysqli_fetch_assoc($resultado_patrimonio)){ 
                         
-                      
+                        if($_SESSION['idEntidade'] == $rows_patrimonio['idEntidade'] || $_SESSION['idEntidade'] == 0){
                         
                         ?>
                        
@@ -170,7 +170,7 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
 
 
             
-                      <?php } ?>
+                      <?php } } ?>
                     </tbody>
                 </table>
                 </div>

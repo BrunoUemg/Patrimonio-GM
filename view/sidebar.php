@@ -68,9 +68,9 @@ if (isset($_SESSION['nomeUsuario'])) {
                 <i class="fas fa-file-pdf"></i>
                     <a href="gerenciar_relatorios.php">Relatórios</a>
                 </li>
-                <li onclick="window.location.href = 'gerenciar_iventario.php'"> 
+                <li onclick="window.location.href = 'gerenciar_inventario.php'"> 
                 <i class="fas fa-map-marked-alt"></i>
-                    <a href="gerenciar_iventario.php">Iventários</a>
+                    <a href="gerenciar_inventario.php">Iventários</a>
                 </li>
 
 
@@ -108,9 +108,9 @@ if (isset($_SESSION['nomeUsuario'])) {
                 <i class="fas fa-file-pdf"></i>
                     <a href="gerenciar_relatorios.php">Relatórios</a>
                 </li>
-                <li onclick="window.location.href = 'gerenciar_iventario.php'"> 
+                <li onclick="window.location.href = 'gerenciar_inventario.php'"> 
                 <i class="fas fa-map-marked-alt"></i>
-                    <a href="gerenciar_iventario.php">Iventários</a>
+                    <a href="gerenciar_inventario.php">Iventários</a>
                 </li>
 
 

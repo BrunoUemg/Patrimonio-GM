@@ -4,14 +4,23 @@ include_once "sidebar.php";
 
 include_once "../dao/conexao.php";
 
-if(isset($_POST['idEntidade'])){
-    $idSala = $_POST['idSala'];
-    $idEntidade = $_POST['idEntidade'];
+if(isset($_POST['codigoPatrimonio'])){
+    $codigoPatrimonio = $_POST['codigoPatrimonio'];
+   
+    $select_patrimonio = mysqli_query($con, "SELECT * FROM patrimonio where codigoPatrimonio = '$codigoPatrimonio'");
+    $result = mysqli_fetch_array($select_patrimonio);
+    if($result['inventario'] == 0){
+        $con->query("UPDATE patrimonio set inventario = 1 where idPatrimonio = $result[idPatrimonio]");
+        $_SESSION['msg'] = '<div class="alert alert-success" role="alert">Patrimônio achado com sucesso!</div>';
+        echo "<script>window.location='../view/patrimonio_achado.php'</script>";
+        exit();
+    } else{
+        $_SESSION['msg'] = '<div class="alert alert-primary" role="alert">Esse patrimônio ja foi achado!</div>';
+        echo "<script>window.location='../view/patrimonio_achado.php'</script>";
+        exit();
+    }
     
     
-    $result_patrimonio = "SELECT * FROM patrimonio P INNER JOIN sala S ON S.idSala = P.idSala 
-    INNER JOIN entidade E ON E.idEntidade = P.idEntidade where P.idEntidade = '$idEntidade' and P.idSala = '$idSala' and P.idStatus !=2";
-    $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
     }
 
 ?>
@@ -40,68 +49,37 @@ if(isset($_POST['idEntidade'])){
 			?>
               <div class="painel-acoes">
             <form action="" method="POST">
-                <h3>Fazer inventário</h3>
+                <h3>Patrimônio achado</h3>
                 
                 <br>
-                <h5>Escolha a sala para iníciar o inventário</h5>
+                
                 <br>
                
-            <div class="row">
+            <div class="row g-3">
 
 
-            <div class="col">
-                <label for="">Entidade</label>
-            
-                <select name="idEntidade" class="form-control" id="idEntidade">
-            <option value="">Escolha a entidade</option>
-            <?php
-            $result_entidade = "SELECT * FROM entidade ORDER BY nomeFantasia";
-            $resultado_entidade = mysqli_query($con, $result_entidade);
-            while($row_entidade = mysqli_fetch_assoc($resultado_entidade) ) {
-                if($_SESSION['idEntidade'] == $row_entidade['idEntidade'] || $_SESSION['idEntidade'] == 0){
-            echo '<option value="'.$row_entidade['idEntidade'].'">'.$row_entidade['nomeFantasia'].'</option>';
-            } }
-            ?>
-            </select>
+            <div class="col-md-3">
+                <label for="">Digite o código do patrimonio achado</label>
+               <input type="text" name="codigoPatrimonio" class="form-control" id="">
                     </div>
 
 
 
 
 
-            <div class="col">
-                <label for="">Unidade</label>
-                <span class="carregando3"><div class="alert alert-danger" role="alert">
-                Ops, sem sala nessa unidade, campo obrigatório!
-            </div></span>
-            <span id="span"></span>
-                <select name="idUnidade" class="form-control" id="idUnidade">
-            <option value="">Escolha a unidade</option>
-            </select>
-                    </div>
         
-
-
-            <div class="col">
-            <label>Sala</label>
-           
-            <span id="span"></span>
-            <select name="idSala" required="required"  class="form-control" id="idSala">
-            <option value="">Escolha a sala</option>
-            </select>
-            </div>
         </div>
         <br>
         
             <br>
-        <button type="submit" class="btn btn-primary">Iniciar</button>
+        <button type="submit" class="btn btn-primary">Esta aqui</button>
             </form>
             </div>
             <?php if(isset($_POST['idEntidade'])){ ?>
               <div class="painel-acoes">
                 <h3><center>Selecione se o patrimônio não estiver na sala</center></h3>
                     <!--ambiente onde fica as tabelas e formularios-->
-                    <form action="../dao/finalizar_inventario.php" method="post">
+                    <form action="../dao/finalizar_iventario.php" method="post">
                 <div class="table-responsive">
                 <table id="basic-datatables" class="table table-bordered">
                     <thead>

@@ -46,7 +46,7 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
                     </thead>
                     <tbody>
                     <?php while($rows_patrimonio = mysqli_fetch_assoc($resultado_patrimonio)){ 
-                        
+                          if($_SESSION['idEntidade'] == $rows_patrimonio['idEntidade'] || $_SESSION['idEntidade'] == 0){
                         $result_patrimonioBaixado = mysqli_query($con, "SELECT * FROM patrimonio_baixado where idPatrimonio = $rows_patrimonio[idPatrimonio]");
 
                         if(mysqli_num_rows($result_patrimonioBaixado) < 1){
@@ -136,7 +136,7 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
 
 
             
-                      <?php } }?>
+                      <?php } } }?>
                     </tbody>
                 </table>
                 </div>

@@ -69,8 +69,9 @@ $resultado_entidade = mysqli_query($con, $result_entidade);
                   $result_entidade = "SELECT * FROM entidade ORDER BY nomeFantasia";
                   $resultado_entidade = mysqli_query($con, $result_entidade);
                   while($row_entidade = mysqli_fetch_assoc($resultado_entidade) ) {
+                    if($_SESSION['idEntidade'] == $row_entidade['idEntidade'] || $_SESSION['idEntidade'] == 0){
                     echo '<option value="'.$row_entidade['idEntidade'].'">'.$row_entidade['nomeFantasia'].'</option>';
-                  }
+                  } }
                 ?>
               </select>
                               </div>
