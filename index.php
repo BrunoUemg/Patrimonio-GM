@@ -3,7 +3,7 @@
 
 include_once "dao/conexao.php";
 session_start();
-if (isset($_SESSION['nomeUsuario'])) {
+if (isset($_SESSION['patrimonio'])) {
     //login ok!
 } else {
     header('location: login_gm.php');

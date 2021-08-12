@@ -40,6 +40,7 @@ $resultado_sala = mysqli_query($con, $result_sala);
                             <td>
                             <a class="btn btn-primary" data-bs-toggle="modal" href="#alterar<?php echo $rows_sala['idSala']; ?>" role="button"><i class="fa fa-edit"></i></a>
                             <?php  echo "<a  class='btn btn-danger' title='Excluir' href='../dao/excluir_sala.php?idSala=" .$rows_sala['idSala']. "' onclick=\"return confirm('Tem certeza que deseja deletar esse registro?');\">"?> <i class='fas fa-trash-alt'></i><?php echo "</a>";  ?>
+                            <?php  echo "<a  class='btn btn-success' title='Gerar termo dessa sala' href='../funcoes/gerar_termo_responsabilidade.php?idSala=" .$rows_sala['idSala']. "'>"?> <i class='fas fa-file-pdf'></i><?php echo "</a>";  ?>
                             
                             
                             

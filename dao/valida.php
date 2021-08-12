@@ -28,6 +28,7 @@ if($userAcesso_db = $userAcesso && password_verify($senha,$senha_db) ){
     $_SESSION['idUsuario'] = $idUsuario;
     $_SESSION['acesso'] = $acesso;
     $_SESSION['idEntidade'] = $idEntidade;
+    $_SESSION['patrimonio'] = true;
     header('location: ../index.php');
 
 }else{
