@@ -4,17 +4,18 @@
 
 include_once "../dao/conexao.php";
 
-$idSala = $_GET["idSala"];
+$idSala = $_POST["idSala"];
+$idResponsavel_patrimonio = $_POST["idResponsavel_patrimonio"];
 
 
-$sql4 = "SELECT * FROM patrimonio P INNER JOIN sala S ON S.idSala = P.idSala INNER JOIN entidade E ON E.idEntidade = P.idEntidade where P.idSala = $idSala ";
+$sql4 = "SELECT * FROM patrimonio P INNER JOIN sala S ON S.idSala = P.idSala INNER JOIN entidade E ON E.idEntidade = P.idEntidade where P.idSala = $idSala and P.status !=2 ";
 $res = $con-> query($sql4);
 $linha = $res->fetch_assoc();
 $resultado_patrimonio = mysqli_query($con, $sql4);
 
 
-
-  
+$select_resp = mysqli_query($con,"SELECT nomeResponsavel, cpf, rg FROM responsavel_patrimonio where idResponsavel_patrimonio = '$idResponsavel_patrimonio' ");
+$resp = mysqli_fetch_array($select_resp); 
   
 
  $cont = 1;
@@ -62,7 +63,7 @@ $resultado_patrimonio = mysqli_query($con, $sql4);
   <br>
   
 
-  <p>Eu ___________________________________________________________________, inscrito (a) no CPF sob o n° ______________________________________________, RG _________________________, declaro ao <b>GUARDA MIRIM DE FRUTAL</b>, associação privada sem fins lucrativos, inscrita no CNPJ sob n° 26.032.698/0001-10, com sede na Rua Floriano Peixoto, n° 403, bairro Centro, município de Frutal/MG, CEP: 38.206-148 que concordo com todos os termos do uso dos equipamentos da Instituição e declaro ainda ser responsável pelos objetos pertencentes ao meu setor.</p>
+  <p>Eu '.$resp['nomeResponsavel'].', inscrito (a) no CPF sob o n° '.$resp['cpf'].', RG '.$resp['rg'].', declaro ao <b>GUARDA MIRIM DE FRUTAL</b>, associação privada sem fins lucrativos, inscrita no CNPJ sob n° 26.032.698/0001-10, com sede na Rua Floriano Peixoto, n° 403, bairro Centro, município de Frutal/MG, CEP: 38.206-148 que concordo com todos os termos do uso dos equipamentos da Instituição e declaro ainda ser responsável pelos objetos pertencentes ao meu setor.</p>
    
        
       <h3><b>Concordo que:<b></h3>
@@ -123,12 +124,13 @@ $resultado_patrimonio = mysqli_query($con, $sql4);
     <tr>
       <td style="width: 45.0000%;">______________________________________ </td>
       <td style="width: 10.0000%;"> </td>
-      <td style="width: 45.0000%;"><center>______________________________________</center> </td>
+      <td style="width: 45.0000%;">______________________________________ </td>
+     
     </tr>
     <tr>
-      <td style="width: 45.0000%;"><center><strong>Wendell José da Silva</strong><br>CPF: 630.119.726-72<br>Testemunha 1</center></td>
+      <td style="width: 45.0000%;"><center><strong>Nome:</strong><br>CPF: <br>Testemunha 1</center></td>
       <td style="width: 10.0000%;"> </td>
-      <td style="width: 45.0000%;"> <center> <strong>Dhouglas Araujo Soares</strong><br>CPF: 088.288.716-52<br>Testemunha 2</center> </td>
+      <td style="width: 45.0000%;"><center><strong>'.$resp['nomeResponsavel'].'</strong><br>CPF: '.$resp['cpf'].'<br>Testemunha 2</center></td>
     </tr>
 
     </tbody>
@@ -145,7 +147,7 @@ $resultado_patrimonio = mysqli_query($con, $sql4);
   $dompdf->render();
   
   // Output the generated PDF to Browser
-  $dompdf->stream('Termo de responsabilidade dos bens.pdf',
+  $dompdf->stream('Termo de responsabilidade dos bens de '.$resp['nomeResponsavel'].'.pdf',
   array ("Attachment" =>true //para realizar o download somente alterar para true
   )
   );
