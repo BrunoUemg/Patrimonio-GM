@@ -58,6 +58,7 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
                             <td>
                               <?php if($_SESSION['acesso'] == 1){ ?>
                             <a class="btn btn-primary" data-bs-toggle="modal" href="#alterar<?php echo $rows_patrimonio['idPatrimonio']; ?>" role="button"><i class="fa fa-edit"></i></a><?php } ?>
+                            <a class="btn btn-primary" data-bs-toggle="modal" href="#foto<?php echo $rows_patrimonio['idPatrimonio']; ?>" role="button">Alterar foto</a><?php  ?>
                             <a class="btn btn-primary" data-bs-toggle="modal" target="_blank" href="<?php echo '../foto_patrimonio/'. $rows_patrimonio['fotoPatrimonio']; ?>" role="button">Foto</a>
                             <a class="btn btn-primary" data-bs-toggle="modal" target="_blank" href="<?php echo '../nota_fiscal/'. $rows_patrimonio['fotoPatrimonio']; ?>" role="button">Nota fiscal</a>
                             <?php  echo "<a  class='btn btn-primary' title='baixa' href='../dao/envio_baixa_patrimonio.php?idPatrimonio=" .$rows_patrimonio['idPatrimonio']. "' onclick=\"return confirm('Tem certeza que deseja dar baixa nesse patrmiônio? ele ficará como pendente');\">"?> <i class="fas fa-arrow-down"></i><?php echo "</a>";  ?>
@@ -153,15 +154,41 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
                                 
                             </div>
                             </div>
+                            </div>
+                            </div>
+                            <div class="modal fade" id="foto<?php echo $rows_patrimonio['idPatrimonio']; ?>" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalToggleLabel">Inserir foto</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                <form action="../dao/envio_foto_patrimonio.php" enctype="multipart/form-data" method="POST">
+
+                                <input type="text" hidden name="idPatrimonio" value="<?php echo $rows_patrimonio['idPatrimonio']; ?>">
+                                <label for="">Inserir</label>
+                                <input type="file" class="form-control" name="fotoPatrimonio" id="">
+                                
+                                
+                                </div>
+                                <div class="modal-footer">
+                                <input type="submit" class="btn btn-success" value="Salvar">
+                                <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Fechar</button>
+                                </div>
+                                </form>
+                                </div>
+                            </div>
+                            </div>
 
                            
 
 
                             
-                            </td>
+                           
 
 
-                            </td>
+                          
 
 
 

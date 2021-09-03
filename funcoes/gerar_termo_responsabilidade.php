@@ -8,7 +8,7 @@ $idSala = $_POST["idSala"];
 $idResponsavel_patrimonio = $_POST["idResponsavel_patrimonio"];
 
 
-$sql4 = "SELECT * FROM patrimonio P INNER JOIN sala S ON S.idSala = P.idSala INNER JOIN entidade E ON E.idEntidade = P.idEntidade where P.idSala = $idSala and P.status !=2 ";
+$sql4 = "SELECT * FROM patrimonio P INNER JOIN sala S ON S.idSala = P.idSala INNER JOIN entidade E ON E.idEntidade = P.idEntidade where P.idSala = $idSala and P.idStatus !=2 ";
 $res = $con-> query($sql4);
 $linha = $res->fetch_assoc();
 $resultado_patrimonio = mysqli_query($con, $sql4);
@@ -22,7 +22,7 @@ $resp = mysqli_fetch_array($select_resp);
   
   while ($rows_patrimonio = mysqli_fetch_assoc($resultado_patrimonio)) { 
         
-         if($cont == 27){
+         if($cont == 22){
         $html .= '<img style="position:fixed; bottom:150px; left:-48px;" src="../img/footer3.png">';  
         $html .= '<div style="page-break-after: always;"></div>';
          }
@@ -108,9 +108,9 @@ $resp = mysqli_fetch_array($select_resp);
       <td style="width: 45.0000%;"><center>______________________________________</center> </td>
     </tr>
     <tr>
-      <td style="width: 45.0000%;"><center><strong>José Maria Perim</strong><br>CPF: 075.567.628-90<br>Presidente da Guarda Mirim</center></td>
+      <td style="width: 45.0000%;"><center><strong>Guarda Mirim de Frutal</strong><br>CNPJ: 03.284.717/0001-09</center></td>
       <td style="width: 10.0000%;"> </td>
-      <td style="width: 45.0000%;"> <center><strong>Lesllye Laura Silva Alves</strong><br>CPF: 131.140.426-48</center> </td>
+      <td style="width: 45.0000%;"> <center><strong>'.$resp['nomeResponsavel'].'</strong><br>CPF: '.$resp['cpf'].'</center> </td>
     </tr>
 
     </tbody>
@@ -128,9 +128,9 @@ $resp = mysqli_fetch_array($select_resp);
      
     </tr>
     <tr>
-      <td style="width: 45.0000%;"><center><strong>Nome:</strong><br>CPF: <br>Testemunha 1</center></td>
+      <td style="width: 45.0000%;"><center><strong>Testemunha 1</strong></center></td>
       <td style="width: 10.0000%;"> </td>
-      <td style="width: 45.0000%;"><center><strong>'.$resp['nomeResponsavel'].'</strong><br>CPF: '.$resp['cpf'].'<br>Testemunha 2</center></td>
+      <td style="width: 45.0000%;"><center><strong>Testemunha 2</strong><br></center></td>
     </tr>
 
     </tbody>
