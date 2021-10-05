@@ -112,8 +112,10 @@ if (isset($_SESSION['patrimonio'])) {
                 <i class="fas fa-map-marked-alt"></i>
                     <a href="view/gerenciar_inventario.php">Iventários</a>
                 </li>
-
-              
+                <li onclick="window.location.href = 'gerenciar_responsavel.php'"> 
+                <i class="fas fa-user-tag"></i>
+                    <a href="gerenciar_responsavel.php">Responsável</a>
+                </li>
                 <li onclick="window.location.href = 'view/gerenciar_usuario.php'">
                     <i class="fas fa-user"></i>
                     <a href="view/gerenciar_usuario.php">Usuário</a>
