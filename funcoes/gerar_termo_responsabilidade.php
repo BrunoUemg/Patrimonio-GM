@@ -22,11 +22,11 @@ $resp = mysqli_fetch_array($select_resp);
   
   while ($rows_patrimonio = mysqli_fetch_assoc($resultado_patrimonio)) { 
         
-         if($cont == 22){
+         if($cont == 23 || $cont == 48){
         $html .= '<img style="position:fixed; bottom:150px; left:-48px;" src="../img/footer3.png">';  
         $html .= '<div style="page-break-after: always;"></div>';
          }
-         $html .= '&nbsp; &nbsp; &nbsp;' .$cont.':&nbsp;'   .$rows_patrimonio['descricaoPatrimonio']. '<br>';
+         $html .= '&nbsp; &nbsp; &nbsp;' .$cont.':&nbsp;'. $rows_patrimonio['codigoPatrimonio'] .'-'.$rows_patrimonio['descricaoPatrimonio']. '<br>';
         
         
          $cont += 1;   
