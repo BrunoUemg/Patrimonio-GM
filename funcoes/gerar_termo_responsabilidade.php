@@ -22,10 +22,13 @@ $resp = mysqli_fetch_array($select_resp);
   
   while ($rows_patrimonio = mysqli_fetch_assoc($resultado_patrimonio)) { 
         
-         if($cont == 23 || $cont == 48){
-        $html .= '<img style="position:fixed; bottom:150px; left:-48px;" src="../img/footer3.png">';  
+         if($cont == 31 || $cont == 55 || $cont == 80){
         $html .= '<div style="page-break-after: always;"></div>';
+        $html .= '<img style="position:fixed; top:-50px; left:-48px; width: 95.00%;" src="../img/header.png">';  
+        $html .= '<div></div><br><br><br><br><br>';
+       
          }
+         
          $html .= '&nbsp; &nbsp; &nbsp;' .$cont.':&nbsp;'. $rows_patrimonio['codigoPatrimonio'] .'-'.$rows_patrimonio['descricaoPatrimonio']. '<br>';
         
         
@@ -55,9 +58,12 @@ $resp = mysqli_fetch_array($select_resp);
   require_once 'dompdf/autoload.inc.php';
   
   $dompdf = new Dompdf();
-  $dompdf->loadHtml(' <div align="right"> </div>
-  
-  
+  $dompdf->loadHtml(' 
+  <div  style="position:absolute; bottom: 0px; right:5px;"> </div>
+<br>
+<br>
+<br>
+<br>
   <center><h2><u><b> TERMO DE RESPONSABILIDADE DOS EQUIPAMENTOS DO(A) '.$linha['nomeFantasia'].' </b></u></h2></center> 
   
   <br>
@@ -89,7 +95,7 @@ $resp = mysqli_fetch_array($select_resp);
       
  
 
-  <img style="position:fixed; bottom:150px; left:-48px;" src="../img/footer3.png">
+  <img style="position:fixed; top:-50px; left:-48px; width: 95.00%;" src="../img/header.png">
 
   
 <div style="page-break-after: always;"></div>
@@ -97,6 +103,14 @@ $resp = mysqli_fetch_array($select_resp);
   
     
     
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
   <br>
   <br>
   <br>
@@ -136,7 +150,7 @@ $resp = mysqli_fetch_array($select_resp);
     </tbody>
     </table>
  
-  <img style="position:fixed; bottom:150px; left:-48px;" src="../img/footer3.png">
+    <img style="position:fixed; top:-50px; left:-48px; width: 95.00%;" src="../img/header.png">
   
   ');
   
