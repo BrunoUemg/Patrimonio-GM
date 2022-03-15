@@ -22,7 +22,7 @@ $resp = mysqli_fetch_array($select_resp);
   
   while ($rows_patrimonio = mysqli_fetch_assoc($resultado_patrimonio)) { 
         
-         if($cont == 31 || $cont == 55 || $cont == 80){
+         if($cont == 19 || $cont == 45 || $cont == 65){
         $html .= '<div style="page-break-after: always;"></div>';
         $html .= '<img style="position:fixed; top:-50px; left:-48px; width: 95.00%;" src="../img/header.png">';  
         $html .= '<div></div><br><br><br><br><br>';
@@ -86,10 +86,10 @@ $resp = mysqli_fetch_array($select_resp);
     <li><u><b>&nbsp;Qualquer equipamento que for retirado do meu setor deverá constar em um documento com a assinatura de ambas as partes cientes;</u></b></li>
     <li><u><b>&nbsp;Como responsável pelo setor, assumo as responsabilidades pelos danos, sumiço ou quaisquer outros contratempos nos equipamentos.</u></b></li>
     </ol>
-  <p>O não cumprimento do presente Termo acarretará em responsabilidade civil, criminal, trabalhista e administrativa.</p>
-  <p>Por fim, nos termos da legislação vigente e por estarem de pleno acordo com todas as cláusulas e condições ora pactuadas, assinam o presente instrumento em 2 (duas) vias que serão disponibilizadas uma ao empregado e outra ao empregador.</p>
+ 
   
-  
+    <p>O não cumprimento do presente Termo acarretará em responsabilidade civil, criminal, trabalhista e administrativa.</p>
+    <p>Por fim, nos termos da legislação vigente e por estarem de pleno acordo com todas as cláusulas e condições ora pactuadas, assinam o presente instrumento em 2 (duas) vias que serão disponibilizadas uma ao empregado e outra ao empregador.</p>
   
  
       
@@ -99,6 +99,7 @@ $resp = mysqli_fetch_array($select_resp);
 
   
 <div style="page-break-after: always;"></div>
+
    
   
     
