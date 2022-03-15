@@ -9,8 +9,9 @@ $resultado_usuario = mysqli_query($con, $result_usuario);
 
 <div class="main-content">
               <div class="panel-row">
+                <?php if($_SESSION['acesso'] == 1){ ?>
                   <button class="btn-panel" type="button" onclick="window.location.href = 'cadastrar_usuario.php'">Cadastrar usuario</button>
-                  <button class="btn-panel" type="button" onclick="window.location.href = 'gerenciar_usuario.php'">Voltar ao gerenciamento</button>
+                <?php } ?>
               </div>
               <div class="painel-acoes">
                     <!--ambiente onde fica as tabelas e formularios-->
@@ -31,8 +32,8 @@ $resultado_usuario = mysqli_query($con, $result_usuario);
                             <td><?php echo $rows_usuario['nomeUsuario']; ?></td>
                             <td><?php echo $rows_usuario['userAcesso']; ?></td>
                             <td>
-                           
-                            <?php  echo "<a  class='btn btn-danger' title='Excluir' href='../dao/excluir_usuario.php?idUsuario=" .$rows_usuario['idUsuario']. "' onclick=\"return confirm('Tem certeza que deseja deletar esse registro?');\">"?> <i class='fas fa-trash-alt'></i><?php echo "</a>";  ?>
+                            <?php if($_SESSION['acesso'] == 1){ ?>
+                            <?php  echo "<a  class='btn btn-danger' title='Excluir' href='../dao/excluir_usuario.php?idUsuario=" .$rows_usuario['idUsuario']. "' onclick=\"return confirm('Tem certeza que deseja deletar esse registro?');\">"?> <i class='fas fa-trash-alt'></i><?php echo "</a>"; } ?>
                             
                             
                             

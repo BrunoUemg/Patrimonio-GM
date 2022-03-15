@@ -17,15 +17,15 @@ if(password_verify($senha_atual,$senha_db))
     $senha_segura = password_hash($nova_senha, PASSWORD_DEFAULT);
     $update_senha = "UPDATE usuario set senha = '$senha_segura' where idUsuario = '$_SESSION[idUsuario]'";
     if($con->query($update_senha) === true){
-        echo "<script>alert('Senha Atualizada com sucesso.');window.location='../view/gerenciar_usuario.php'</script>";
+        echo "<script>alert('Senha Atualizada com sucesso.');window.location='../index.php'</script>";
     }
 }else{
-    echo "<script>alert('Senha atual Incorreta!');window.location='../view/gerenciar_usuario.php'</script>";
+    echo "<script>alert('Senha atual Incorreta!');window.location='../index.php'</script>";
     exit();
 }
 
 }else{
-    echo "<script>alert('Senha e confirmação incorreta!');window.location='../view/gerenciar_usuario.php'</script>";
+    echo "<script>alert('Senha e confirmação incorreta!');window.location='../index.php'</script>";
     exit();
 }
 

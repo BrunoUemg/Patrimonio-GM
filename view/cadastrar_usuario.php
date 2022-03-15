@@ -8,7 +8,7 @@ include_once "sidebar.php";
 
         
               <div class="panel-row">
-                  <button class="btn-panel" type="button" onclick="window.location.href = 'gerenciar_usuario.php'">Voltar ao gerenciamento</button>
+                 
                   <button class="btn-panel" type="button" onclick="window.location.href= 'consultar_usuario.php'" >Visualizar Usuário</button>
               </div>
               

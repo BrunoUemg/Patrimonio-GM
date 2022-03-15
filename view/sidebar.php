@@ -79,9 +79,9 @@ if (isset($_SESSION['patrimonio'])) {
 
 
                
-                <li onclick="window.location.href = 'gerenciar_usuario.php'">
+                <li onclick="window.location.href = 'consultar_usuario.php'">
                     <i class="fas fa-user"></i>
-                    <a href="gerenciar_usuario.php">Usuário</a>
+                    <a href="consultar_usuario.php">Usuário</a>
                 </li>
               
               </ul>
@@ -122,9 +122,9 @@ if (isset($_SESSION['patrimonio'])) {
                 </li>
 
                
-                <li onclick="window.location.href = 'gerenciar_usuario.php'">
+                <li onclick="window.location.href = 'consultar_usuario.php'">
                     <i class="fas fa-user"></i>
-                    <a href="gerenciar_usuario.php">Usuário</a>
+                    <a href="consultar_usuario.php">Usuário</a>
                 </li>
               
               </ul>
@@ -137,7 +137,7 @@ if (isset($_SESSION['patrimonio'])) {
             <header>
                 <i id="iconMenu" onclick="responsiveSideBar()"  class="fas fa-bars"></i>
                
-               <p>Olá, <?php echo $_SESSION['nomeUsuario']; ?></p>
+               <p>Olá, <?php echo $_SESSION['nomeUsuario']; ?> <a  data-bs-toggle="modal" data-bs-target="#alterar" title="Alterar senha"><i class="fa-solid fa-gear"></i></a> </p>
 
                <a  data-bs-toggle="modal" data-bs-target="#saida"><i class="fas fa-sign-out-alt"></i>Sair</a>
               
@@ -163,6 +163,44 @@ if (isset($_SESSION['patrimonio'])) {
           </div>
         </div>
       </div>
+
+      <!--Modal senha -->
+
+      <div class="modal fade" id="alterar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalToggleLabel">Alterar Senha</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="../dao/alterar_senha.php" method="POST">
+
+
+                        <p>Digite sua senha atual</p>
+                        <input type="password" name="senha_atual" autocomplete="off" class="form-control placeholder-no-fix" required>
+                </div>
+
+                <div class="modal-body">
+                    <p>Digite sua nova senha</p>
+                    <input type="password" name="nova_senha" id="nova_senha" autocomplete="off" class="form-control placeholder-no-fix" required>
+                </div>
+
+                <div class="modal-body">
+                    <p>Confirme sua nova senha</p>
+                    <input type="password" name="confirma_senha" id="confirma_senha" autocomplete="off" class="form-control placeholder-no-fix" required>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" value="Salvar">
+                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Fechar</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
  
       <style type="text/css">
 			.carregando{
@@ -195,7 +233,7 @@ if (isset($_SESSION['patrimonio'])) {
 <!-- script boostrap 5.0.1 -->
 <script src="../js/bootstrap.bundle.min.js" type="text/javascript"></script>
 <!-- Fontawesome -->
-<script src="https://kit.fontawesome.com/5b060b80da.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/2477a48321.js" crossorigin="anonymous"></script>
 
 <!--Script datatables-->
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>

@@ -75,9 +75,9 @@ if (isset($_SESSION['patrimonio'])) {
                 </li>
 
               
-                <li onclick="window.location.href = 'view/gerenciar_usuario.php'">
+                <li onclick="window.location.href = 'view/consultar_usuario.php'">
                     <i class="fas fa-user"></i>
-                    <a href="view/gerenciar_usuario.php">Usuário</a>
+                    <a href="view/consultar_usuario.php">Usuário</a>
                 </li>
                 
              
@@ -116,9 +116,9 @@ if (isset($_SESSION['patrimonio'])) {
                 <i class="fas fa-user-tag"></i>
                     <a href="gerenciar_responsavel.php">Responsável</a>
                 </li>
-                <li onclick="window.location.href = 'view/gerenciar_usuario.php'">
+                <li onclick="window.location.href = 'view/consultar_usuario.php'">
                     <i class="fas fa-user"></i>
-                    <a href="view/gerenciar_usuario.php">Usuário</a>
+                    <a href="view/consultar_usuario.php">Usuário</a>
                 </li>
                 
              
@@ -174,7 +174,7 @@ if (isset($_SESSION['patrimonio'])) {
 <!-- script boostrap 5.0.1 -->
 <script src="js/bootstrap.bundle.min.js" type="text/javascript"></script>
 <!-- Fontawesome -->
-<script src="https://kit.fontawesome.com/5b060b80da.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/2477a48321.js" crossorigin="anonymous"></script>
 
 <!--Script datatables-->
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
