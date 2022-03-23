@@ -69,7 +69,7 @@ $resp = mysqli_fetch_array($select_resp);
   <br>
   
 
-  <p>Eu '.$resp['nomeResponsavel'].', inscrito (a) no CPF sob o n° '.$resp['cpf'].', RG '.$resp['rg'].', declaro ao <b>GUARDA MIRIM DE FRUTAL</b>, associação privada sem fins lucrativos, inscrita no CNPJ sob n° 26.032.698/0001-10, com sede na Rua Floriano Peixoto, n° 403, bairro Centro, município de Frutal/MG, CEP: 38.206-148 que concordo com todos os termos do uso dos equipamentos da Instituição e declaro ainda ser responsável pelos objetos pertencentes ao meu setor.</p>
+  <p>Eu '.$resp['nomeResponsavel'].', inscrito (a) no CPF sob o n° '.$resp['cpf'].', RG '.$resp['rg'].', declaro ao <b>ASSOCIAÇÃO PROFISSIONALIZANTE JOVEM CIDADÃO</b>, associação privada sem fins lucrativos, inscrita no CNPJ sob n° 26.032.698/0001-10, com sede na Rua Floriano Peixoto, n° 403, bairro Centro, município de Frutal/MG, CEP: 38.206-148 que concordo com todos os termos do uso dos equipamentos da Instituição e declaro ainda ser responsável pelos objetos pertencentes ao meu setor.</p>
    
        
       <h3><b>Concordo que:<b></h3>
@@ -123,7 +123,7 @@ $resp = mysqli_fetch_array($select_resp);
       <td style="width: 45.0000%;"><center>______________________________________</center> </td>
     </tr>
     <tr>
-      <td style="width: 45.0000%;"><center><strong>Guarda Mirim de Frutal</strong><br>CNPJ: 03.284.717/0001-09</center></td>
+      <td style="width: 45.0000%;"><center><strong>ASSOCIAÇÃO PROFISSIONALIZANTE JOVEM CIDADÃO</strong><br>CNPJ: 03.284.717/0001-09</center></td>
       <td style="width: 10.0000%;"> </td>
       <td style="width: 45.0000%;"> <center><strong>'.$resp['nomeResponsavel'].'</strong><br>CPF: '.$resp['cpf'].'</center> </td>
     </tr>
