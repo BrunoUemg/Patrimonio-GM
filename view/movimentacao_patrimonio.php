@@ -148,7 +148,7 @@ if(isset($_POST['idEntidade'])){
                             <th>Nome da Sala</th>
                             <th>Entidade</th>
                             <th>Patrimônio</th>
-                            <th>Selecionar</th>
+                            <th> <input type="checkbox" id="btnAllPermission" value="1" id="exampleCheck1"></th>
                         
                          
                         </tr>
@@ -160,7 +160,7 @@ if(isset($_POST['idEntidade'])){
                             <td><?php echo $rows_patrimonio['nomeSala']; ?></td>
                             <td><?php echo $rows_patrimonio['nomeFantasia']; ?></td>
                             <td><?php echo $rows_patrimonio['descricaoPatrimonio']; ?></td>
-                            <td><input type="checkBox"  name="movimentar[]" value="<?php echo $rows_patrimonio['idPatrimonio']; ?>" id="">
+                            <td><input type="checkBox" class="check" name="movimentar[]" value="<?php echo $rows_patrimonio['idPatrimonio']; ?>" id="">
                             <input type="text"  name="idEntidade" hidden value="<?php echo $idEntidade2; ?>" id="">
                             <input type="text"  name="idSala" hidden value="<?php echo $idSala2; ?>" id="">
                             <input type="text"  name="idUnidade" hidden value="<?php echo $idUnidade2; ?>" id="">
@@ -185,9 +185,36 @@ if(isset($_POST['idEntidade'])){
     </div>
 
 <?php } ?>
+
+
+<script src="js/jquery.js"></script>
+
+<script>
+            let checkbox = document.querySelectorAll('.check');
+            let todasPermissao = document.querySelector('#btnAllPermission');
+            btnAllPermission.addEventListener('click', () => {
+                if (todasPermissao.checked == true) {
+                    for (let atual of checkbox) {
+                        atual.checked = true;
+                    }
+                } else {
+                    for (let atual of checkbox) {
+                        atual.checked = false;
+                    }
+                }
+            })
+        </script>
+
+
 <script>
     $(document).ready(function() {
       $('#basic-datatables').DataTable({
+
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 linhas', '25 linhas', '50 linhas', 'Mostrar tudo' ]
+        ],
+
         "language": {
           "sEmptyTable": "Nenhum registro encontrado",
           "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
