@@ -22,7 +22,7 @@ $resp = mysqli_fetch_array($select_resp);
   
   while ($rows_patrimonio = mysqli_fetch_assoc($resultado_patrimonio)) { 
         
-         if($cont == 19 || $cont == 45 || $cont == 65){
+         if($cont == 17 || $cont == 38 || $cont == 55){
         $html .= '<div style="page-break-after: always;"></div>';
         $html .= '<img style="position:fixed; top:-50px; left:-48px; width: 95.00%;" src="../img/header.png">';  
         $html .= '<div></div><br><br><br><br><br>';
