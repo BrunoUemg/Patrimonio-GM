@@ -1,6 +1,10 @@
 <?php include_once("conexao.php");
-
-	$idUnidade = $_REQUEST['idUnidade2'];
+	if(isset($_REQUEST['idUnidade2'])){
+		$idUnidade = $_REQUEST['idUnidade2'];
+	}else{
+		$idUnidade = $_REQUEST['idUnidade3'];
+	}
+	
 	
 	$result_sala = "SELECT * FROM sala WHERE idUnidade=$idUnidade ORDER BY nomeSala";
 	$resultado_sala = mysqli_query($con, $result_sala);

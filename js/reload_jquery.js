@@ -81,6 +81,46 @@ $(function(){
         }
     });
 });
+$(function(){
+    $('#idEntidade3').change(function(){
+        if( $(this).val() ) {
+            $('#idUnidade3').hide();
+            $('.carregando3').show();
+            $.getJSON('../dao/unidade_post2.php?search=',{idEntidade3: $(this).val(), ajax: 'true'}, function(j){
+                var options = '<option value="">Escolha a unidade</option>';	
+                for (var i = 0; i < j.length; i++) {
+                    options += '<option value="' + j[i].id + '">' + j[i].nome + '</option>';
+                }	
+                $('#idUnidade3').html(options).show();
+                $('.carregando3').hide();
+            });
+        } else {
+            $('#idUnidade3').html('<option value="">– Escolha a unidade –</option>');
+           
+        }
+    });
+});
+
+
+$(function(){
+    $('#idUnidade3').change(function(){
+        if( $(this).val() ) {
+            $('#idSala3').hide();
+            $('.carregando5').show();
+            $.getJSON('../dao/sala_post2.php?search=',{idUnidade3: $(this).val(), ajax: 'true'}, function(j){
+                var options = '<option value="">Escolha a sala</option>';	
+                for (var i = 0; i < j.length; i++) {
+                    options += '<option value="' + j[i].id + '">' + j[i].nome + '</option>';
+                }	
+                $('#idSala3').html(options).show();
+                $('.carregando5').hide();
+            });
+        } else {
+            $('#idSala3').html('<option value="">– Escolha a sala –</option>');
+           
+        }
+    });
+});
 
 
 $(function(){
