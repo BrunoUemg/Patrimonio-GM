@@ -33,7 +33,9 @@ $resultado_usuario = mysqli_query($con, $result_usuario);
                             <td><?php echo $rows_usuario['userAcesso']; ?></td>
                             <td>
                             <?php if($_SESSION['acesso'] == 1){ ?>
-                            <?php  echo "<a  class='btn btn-danger' title='Excluir' href='../dao/excluir_usuario.php?idUsuario=" .$rows_usuario['idUsuario']. "' onclick=\"return confirm('Tem certeza que deseja deletar esse registro?');\">"?> <i class='fas fa-trash-alt'></i><?php echo "</a>"; } ?>
+                              <a href="visualizar_usuario.php?idUsuario=<?php echo $rows_usuario['idUsuario']; ?>" class="btn btn-primary">Visualizar</a>
+                            <?php  
+                              echo "<a  class='btn btn-danger' title='Excluir' href='../dao/excluir_usuario.php?idUsuario=" .$rows_usuario['idUsuario']. "' onclick=\"return confirm('Tem certeza que deseja deletar esse registro?');\">"?> <i class='fas fa-trash-alt'></i><?php echo "</a>"; } ?>
                             
                             
                             

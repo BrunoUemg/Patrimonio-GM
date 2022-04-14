@@ -16,12 +16,27 @@ if (isset($_POST['idEntidade']) && isset($_POST['salvarGeral'])) {
     $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
 }
 
-if(isset($_POST['salvarUnica'])){
+if (isset($_POST['salvarUnica'])) {
     $idSala = $_POST['idSala'];
     $idEntidade = $_POST['idEntidade'];
+    $idUnidade = $_POST['idUnidade'];
     $codigoPatrimonio = $_POST['codigoPatrimonio'];
 
     $con->query("UPDATE patrimonio set idEntidade = '$idEntidade', idSala = '$idSala' where codigoPatrimonio = '$codigoPatrimonio'");
+    setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+    date_default_timezone_set('America/Sao_Paulo');
+
+    
+    $data_hoje = date("Y-m-d");
+    $hora = date("H:i:s");
+    $select_patrimonio = mysqli_query($con, "SELECT * FROM patrimonio where codigoPatrimonio = '$codigoPatrimonio'");
+    $getPatrimonio = mysqli_fetch_array($select_patrimonio);
+    $idPatrimonio = $getPatrimonio['idPatrimonio'];
+
+    $con->query("INSERT INTO historico_movimentacoes (dataAlteracao, horaAlteracao, acao, idUsuario, idPatrimonio, idSala, idEntidade, 
+            idUnidade)VALUES('$data_hoje', '$hora', 'Movimentou o patrimônio', '$_SESSION[idUsuario]', 
+            '$idPatrimonio', '$idSala', '$idEntidade', '$idUnidade')");
+
     $_SESSION['msg'] = '<div class="alert alert-success" role="alert">Movimenta com sucesso!</div>';
     echo "<script>window.location='movimentacao_patrimonio.php'</script>";
     exit();

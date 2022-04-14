@@ -5,7 +5,7 @@ $userAcesso = $_POST['userAcesso'];
 $senha = $_POST['senha'];
 
 if($userAcesso == null || $senha == null){
-    $_SESSION['invalido'] = msg_erro('Login invalido');
+    $_SESSION['invalido'] = ('Login invalido');
     echo "<script>alert('Usuário ou senha incorreta !');window.location='../login_gm.php'</script>";
     exit;
 }

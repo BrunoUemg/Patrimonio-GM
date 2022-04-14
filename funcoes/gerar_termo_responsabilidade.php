@@ -69,7 +69,7 @@ $resp = mysqli_fetch_array($select_resp);
   <br>
   
 
-  <p>Eu '.$resp['nomeResponsavel'].', inscrito (a) no CPF sob o n° '.$resp['cpf'].', RG '.$resp['rg'].', declaro ao <b>ASSOCIAÇÃO PROFISSIONALIZANTE JOVEM CIDADÃO</b>, associação privada sem fins lucrativos, inscrita no CNPJ sob n° 03.284.717/0001-09, com sede na Rua Praça Doutor Alcides de Paula Gomes, nº38, centro, município de Frutal/MG, CEP: 38200-080 que concordo com todos os termos do uso dos equipamentos da Instituição e declaro ainda ser responsável pelos objetos pertencentes ao meu setor.</p>
+  <p>Eu '.$resp['nomeResponsavel'].', inscrito (a) no CPF sob o n° '.$resp['cpf'].', RG '.$resp['rg'].', declaro ao <b>ASSOCIAÇÃO PROFISSIONALIZANTE JOVEM CIDADÃO</b>, associação privada sem fins lucrativos, inscrita no CNPJ sob n° 03.284.717/0001-09, com sede na Rua Praça Doutor Alcides de Paula Gomes, nº39, centro, município de Frutal/MG, CEP: 38200-090 que concordo com todos os termos do uso dos equipamentos da Instituição e declaro ainda ser responsável pelos objetos pertencentes ao meu setor.</p>
    
        
       <h3><b>Concordo que:<b></h3>

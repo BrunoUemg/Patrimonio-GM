@@ -8,6 +8,8 @@ if (isset($_SESSION['patrimonio'])) {
     header('location: login_gm.php');
 }
 
+$select_nivel = mysqli_query($con,"SELECT * FROM usuario U INNER JOIN nivel_acesso N ON N.idUsuario = U.idUsuario where N.idUsuario = '$_SESSION[idUsuario]'");
+$linha_usu = mysqli_fetch_array($select_nivel);
 
 ?>
 
