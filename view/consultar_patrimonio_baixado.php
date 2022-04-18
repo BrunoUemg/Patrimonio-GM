@@ -189,7 +189,7 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
 
 
 
-                
+
             <?php }
             } ?>
           </tbody>
@@ -207,6 +207,21 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
   <script>
     $(document).ready(function() {
       $('#basic-datatables').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+          'pdf', {
+            extend: 'print',
+            text: 'Imprimir',
+            key: {
+              key: 'p',
+              altkey: true
+            }
+
+          },
+
+          'excel'
+
+        ],
         "language": {
           "sEmptyTable": "Nenhum registro encontrado",
           "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",

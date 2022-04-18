@@ -6,7 +6,7 @@ $result_usuario = "SELECT * FROM usuario where acesso != 1";
 $resultado_usuario = mysqli_query($con, $result_usuario);
 
 ?>
-<?php if ($linha_usu['master'] == 1) { ?>
+<?php if ($linha_usu['cadastrarUsuario'] == 1 || $linha_usu['master'] == 1) { ?>
   <div class="main-content">
     <div class="panel-row">
       <?php if ($_SESSION['acesso'] == 1) { ?>
@@ -15,71 +15,73 @@ $resultado_usuario = mysqli_query($con, $result_usuario);
         <?php } ?>
       <?php } ?>
     </div>
-    <div class="painel-acoes">
-      <!--ambiente onde fica as tabelas e formularios-->
-      <div class="table-responsive">
-        <table id="basic-datatables" class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Código</th>
-              <th>Nome do usuario</th>
-              <th>User acesso</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php while ($rows_usuario = mysqli_fetch_assoc($resultado_usuario)) { ?>
+    <?php if ($linha_usu['master'] == 1) { ?>
+      <div class="painel-acoes">
+        <!--ambiente onde fica as tabelas e formularios-->
+        <div class="table-responsive">
+          <table id="basic-datatables" class="table table-bordered">
+            <thead>
               <tr>
-                <td><?php echo $rows_usuario['idUsuario']; ?></td>
-                <td><?php echo $rows_usuario['nomeUsuario']; ?></td>
-                <td><?php echo $rows_usuario['userAcesso']; ?></td>
-                <td>
-                  <?php if ($_SESSION['acesso'] == 1) { ?>
-                    <a href="visualizar_usuario.php?idUsuario=<?php echo $rows_usuario['idUsuario']; ?>" class="btn btn-primary">Visualizar</a>
-                    <?php
-                    if ($linha_usu['master'] == 1) {
-                      echo  "<a  class='btn btn-danger' title='Excluir' href='../dao/excluir_usuario.php?idUsuario=" . $rows_usuario['idUsuario'] . "' onclick=\"return confirm('Tem certeza que deseja deletar esse registro?');\">" ?> <i class='fas fa-trash-alt'></i><?php echo "</a>";
-                                                                                                                                                                                                                                                                                                              }
-                                                                                                                                                                                                                                                                                                            } ?>
+                <th>Código</th>
+                <th>Nome do usuario</th>
+                <th>User acesso</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php while ($rows_usuario = mysqli_fetch_assoc($resultado_usuario)) { ?>
+                <tr>
+                  <td><?php echo $rows_usuario['idUsuario']; ?></td>
+                  <td><?php echo $rows_usuario['nomeUsuario']; ?></td>
+                  <td><?php echo $rows_usuario['userAcesso']; ?></td>
+                  <td>
+                    <?php if ($_SESSION['acesso'] == 1) { ?>
+                      <a href="visualizar_usuario.php?idUsuario=<?php echo $rows_usuario['idUsuario']; ?>" class="btn btn-primary">Visualizar</a>
+                      <?php
+                      if ($linha_usu['master'] == 1) {
+                        echo  "<a  class='btn btn-danger' title='Excluir' href='../dao/excluir_usuario.php?idUsuario=" . $rows_usuario['idUsuario'] . "' onclick=\"return confirm('Tem certeza que deseja deletar esse registro?');\">" ?> <i class='fas fa-trash-alt'></i><?php echo "</a>";
+                                                                                                                                                                                                                                                                          }
+                                                                                                                                                                                                                                                                        } ?>
 
 
 
-                  <div class="modal fade" id="alterar<?php echo $rows_usuario['idUsuario']; ?>" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalToggleLabel">Alterar usuario</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal fade" id="alterar<?php echo $rows_usuario['idUsuario']; ?>" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalToggleLabel">Alterar usuario</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <form action="../dao/envio_alterar_usuario.php" method="POST">
+
+                              <input type="text" hidden name="idUsuario" value="<?php echo $rows_usuario['idUsuario']; ?>">
+                              <label for="">Nome da usuario</label>
+                              <input type="text" class="form-control" name="nomeUsuario" value="<?php echo $rows_usuario['nomeUsuario'] ?>" id="">
+
+
+
+                          </div>
+                          <div class="modal-footer">
+                            <input type="submit" class="btn btn-success" value="Salvar">
+                            <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Fechar</button>
+                          </div>
+                          </form>
                         </div>
-                        <div class="modal-body">
-                          <form action="../dao/envio_alterar_usuario.php" method="POST">
-
-                            <input type="text" hidden name="idUsuario" value="<?php echo $rows_usuario['idUsuario']; ?>">
-                            <label for="">Nome da usuario</label>
-                            <input type="text" class="form-control" name="nomeUsuario" value="<?php echo $rows_usuario['nomeUsuario'] ?>" id="">
-
-
-
-                        </div>
-                        <div class="modal-footer">
-                          <input type="submit" class="btn btn-success" value="Salvar">
-                          <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Fechar</button>
-                        </div>
-                        </form>
                       </div>
                     </div>
-                  </div>
 
 
 
-                </td>
-              </tr>
-            <?php } ?>
+                  </td>
+                </tr>
+              <?php } ?>
 
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    <?php } ?>
   </div>
   </main>
   </div>
