@@ -50,7 +50,8 @@ $resultado_termo = mysqli_query($con, $result_termo);
             $result_entidade = "SELECT * FROM entidade ORDER BY nomeFantasia";
             $resultado_entidade = mysqli_query($con, $result_entidade);
             while($row_entidade = mysqli_fetch_assoc($resultado_entidade) ) {
-                if($_SESSION['idEntidade'] == $row_entidade['idEntidade'] || $_SESSION['idEntidade'] == 0){
+              $select_entidade_usu = mysqli_query($con, "SELECT * FROM entidade_usuario where idUsuario = $_SESSION[idUsuario] and $row_entidade[idEntidade]");
+              if (mysqli_num_rows($select_entidade_usu) > 0 || $linha_usu['master'] == 1) {
             echo '<option value="'.$row_entidade['idEntidade'].'">'.$row_entidade['nomeFantasia'].'</option>';
             } }
             ?>

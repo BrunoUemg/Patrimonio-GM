@@ -105,7 +105,10 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
                         </tr>
                     </thead>
                     <tbody>
-                    <?php while($rows_patrimonio = mysqli_fetch_assoc($resultado_patrimonio)){ ?>
+                    <?php while($rows_patrimonio = mysqli_fetch_assoc($resultado_patrimonio)){ 
+                         $select_entidade_usu = mysqli_query($con, "SELECT * FROM entidade_usuario where idUsuario = $_SESSION[idUsuario] and $rows_patrimonio[idEntidade]");
+                         if (mysqli_num_rows($select_entidade_usu) > 0 || $linha_usu['master'] == 1) {
+                        ?>
                         <tr>
                             <td><?php echo $rows_patrimonio['codigoPatrimonio']; ?></td>
                             <td><?php echo $rows_patrimonio['nomeSala']; ?></td>
@@ -113,7 +116,7 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
                             <td><?php echo $rows_patrimonio['descricaoPatrimonio']; ?></td>
                            
                         </tr>
-            <?php } ?>
+            <?php } } ?>
 
                     </tbody>
                 </table>
