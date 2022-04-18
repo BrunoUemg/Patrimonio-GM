@@ -26,7 +26,7 @@ if (isset($_POST['salvarUnica'])) {
     setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
     date_default_timezone_set('America/Sao_Paulo');
 
-    
+
     $data_hoje = date("Y-m-d");
     $hora = date("H:i:s");
     $select_patrimonio = mysqli_query($con, "SELECT * FROM patrimonio where codigoPatrimonio = '$codigoPatrimonio'");
@@ -44,251 +44,255 @@ if (isset($_POST['salvarUnica'])) {
 
 ?>
 
+<?php if ($linha_usu['movimentacaoUnica'] == 1 || $linha_usu['movimentacaoGeral'] == 1 || $linha_usu['master'] == 1) { ?>
+
+    <div class="main-content">
+        <?php include_once("../dao/conexao.php");
+        if (!empty($_SESSION['msg'])) {
+            echo $_SESSION['msg'];
+            unset($_SESSION['msg']);
+        }
+        ?>
+        <div class="painel-acoes">
+            <div class="row">
+                <div class="col">
+                    <?php if ($linha_usu['movimentacaoUnica'] == 1 || $linha_usu['master'] == 1) { ?>
+                        <button onclick="Unica();" id="btnUnica" class="btnUnica btn btn-primary">Movimentação Unica</button>
+                    <?php }
+                    if ($linha_usu['movimentacaoGeral'] == 1 || $linha_usu['master'] == 1) { ?>
+                        <button onclick="Geral();" id="btnGeral" class="btnGeral btn btn-primary">Movimentação Geral</button>
+                    <?php } ?>
+                </div>
+            </div>
 
 
-<div class="main-content">
-    <?php include_once("../dao/conexao.php");
-    if (!empty($_SESSION['msg'])) {
-        echo $_SESSION['msg'];
-        unset($_SESSION['msg']);
-    }
-    ?>
-    <div class="painel-acoes">
-        <div class="row">
-            <div class="col">
-                <button onclick="Unica();" id="btnUnica" class="btnUnica btn btn-primary">Movimentação Unica</button>
-                <button onclick="Geral();" id="btnGeral" class="btnGeral btn btn-primary">Movimentação Geral</button>
+            <br>
+            <div class="d-none divGeral">
+                <form action="" method="POST">
+                    <h3>Fazer movimentação Geral</h3>
+
+                    <br>
+                    <h5>De:</h5>
+                    <div class="row">
+
+
+                        <div class="col">
+                            <label for="">Entidade</label>
+
+                            <select name="idEntidade" class="form-control" id="idEntidade">
+                                <option value="">Escolha a entidade</option>
+                                <?php
+                                $result_entidade = "SELECT * FROM entidade ORDER BY nomeFantasia";
+                                $resultado_entidade = mysqli_query($con, $result_entidade);
+                                while ($row_entidade = mysqli_fetch_assoc($resultado_entidade)) {
+                                    if ($_SESSION['idEntidade'] == $row_entidade['idEntidade'] || $_SESSION['idEntidade'] == 0) {
+                                        echo '<option value="' . $row_entidade['idEntidade'] . '">' . $row_entidade['nomeFantasia'] . '</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+
+
+
+
+
+                        <div class="col">
+                            <label for="">Unidade</label>
+                            <span class="carregando3">
+                                <div class="alert alert-danger" role="alert">
+                                    Ops, sem sala nessa unidade, campo obrigatório!
+                                </div>
+                            </span>
+                            <span id="span"></span>
+                            <select name="idUnidade" class="form-control" id="idUnidade">
+                                <option value="">Escolha a unidade</option>
+                            </select>
+                        </div>
+
+
+
+                        <div class="col">
+                            <label>Sala</label>
+
+                            <span id="span"></span>
+                            <select name="idSala" required="required" class="form-control" id="idSala">
+                                <option value="">Escolha a sala</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <center>
+                                <h3>Movimentar</h3>
+                            </center>
+
+
+                        </div>
+                    </div>
+                    <br>
+                    <h5>Para:</h5>
+                    <div class="row">
+
+
+                        <div class="col">
+                            <label for="">Entidade</label>
+
+                            <select name="idEntidade2" class="form-control" id="idEntidade2">
+                                <option value="">Escolha a entidade</option>
+                                <?php
+                                $result_entidade2 = "SELECT * FROM entidade ORDER BY nomeFantasia";
+                                $resultado_entidade2 = mysqli_query($con, $result_entidade2);
+                                while ($row_entidade2 = mysqli_fetch_assoc($resultado_entidade2)) {
+                                    if ($_SESSION['idEntidade'] == $row_entidade2['idEntidade'] || $_SESSION['idEntidade'] == 0) {
+                                        echo '<option value="' . $row_entidade2['idEntidade'] . '">' . $row_entidade2['nomeFantasia'] . '</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+
+
+
+
+
+                        <div class="col">
+                            <label for="">Unidade</label>
+
+                            <span id="span"></span>
+                            <select name="idUnidade2" class="form-control" id="idUnidade2">
+                                <option value="">Escolha a unidade</option>
+                            </select>
+                        </div>
+
+
+
+                        <div class="col">
+                            <label>Sala</label>
+
+                            <span id="span"></span>
+                            <select name="idSala2" required="required" class="form-control" id="idSala2">
+                                <option value="">Escolha a sala</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" name="salvarGeral" class="btn btn-primary">Visualizar</button>
+                </form>
+            </div>
+            <br>
+            <div class="d-none divUnica">
+                <form action="" method="POST">
+                    <h3>Fazer movimentação única</h3>
+
+                    <br>
+
+                    <div class="row">
+
+                        <div class="col">
+                            <label for="">Código do patrimonio</label>
+                            <input type="text" name="codigoPatrimonio" class="form-control" id="">
+                        </div>
+                        <div class="col">
+                            <label for="">Entidade</label>
+
+                            <select name="idEntidade" class="form-control" id="idEntidade3">
+                                <option value="">Escolha a entidade</option>
+                                <?php
+                                $result_entidade = "SELECT * FROM entidade ORDER BY nomeFantasia";
+                                $resultado_entidade = mysqli_query($con, $result_entidade);
+                                while ($row_entidade = mysqli_fetch_assoc($resultado_entidade)) {
+                                    if ($_SESSION['idEntidade'] == $row_entidade['idEntidade'] || $_SESSION['idEntidade'] == 0) {
+                                        echo '<option value="' . $row_entidade['idEntidade'] . '">' . $row_entidade['nomeFantasia'] . '</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+
+
+
+
+
+                        <div class="col">
+                            <label for="">Unidade</label>
+                            <span class="carregando3">
+                                <div class="alert alert-danger" role="alert">
+                                    Ops, sem sala nessa unidade, campo obrigatório!
+                                </div>
+                            </span>
+                            <span id="span"></span>
+                            <select name="idUnidade" class="form-control" id="idUnidade3">
+                                <option value="">Escolha a unidade</option>
+                            </select>
+                        </div>
+
+
+
+                        <div class="col">
+                            <label>Sala</label>
+
+                            <span id="span"></span>
+                            <select name="idSala" required="required" class="form-control" id="idSala3">
+                                <option value="">Escolha a sala</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <button type="submit" name="salvarUnica" class="btn btn-primary">Salvar</button>
+                </form>
             </div>
         </div>
+        <?php if (isset($_POST['idEntidade']) && isset($_POST['salvarGeral'])) { ?>
+            <div class="painel-acoes">
 
-
-        <br>
-        <div class="d-none divGeral">
-            <form action="" method="POST">
-                <h3>Fazer movimentação Geral</h3>
-
-                <br>
-                <h5>De:</h5>
-                <div class="row">
-
-
-                    <div class="col">
-                        <label for="">Entidade</label>
-
-                        <select name="idEntidade" class="form-control" id="idEntidade">
-                            <option value="">Escolha a entidade</option>
-                            <?php
-                            $result_entidade = "SELECT * FROM entidade ORDER BY nomeFantasia";
-                            $resultado_entidade = mysqli_query($con, $result_entidade);
-                            while ($row_entidade = mysqli_fetch_assoc($resultado_entidade)) {
-                                if ($_SESSION['idEntidade'] == $row_entidade['idEntidade'] || $_SESSION['idEntidade'] == 0) {
-                                    echo '<option value="' . $row_entidade['idEntidade'] . '">' . $row_entidade['nomeFantasia'] . '</option>';
-                                }
-                            }
-                            ?>
-                        </select>
-                    </div>
-
-
-
-
-
-                    <div class="col">
-                        <label for="">Unidade</label>
-                        <span class="carregando3">
-                            <div class="alert alert-danger" role="alert">
-                                Ops, sem sala nessa unidade, campo obrigatório!
-                            </div>
-                        </span>
-                        <span id="span"></span>
-                        <select name="idUnidade" class="form-control" id="idUnidade">
-                            <option value="">Escolha a unidade</option>
-                        </select>
-                    </div>
-
-
-
-                    <div class="col">
-                        <label>Sala</label>
-
-                        <span id="span"></span>
-                        <select name="idSala" required="required" class="form-control" id="idSala">
-                            <option value="">Escolha a sala</option>
-                        </select>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col">
-                        <center>
-                            <h3>Movimentar</h3>
-                        </center>
-
-
-                    </div>
-                </div>
-                <br>
-                <h5>Para:</h5>
-                <div class="row">
-
-
-                    <div class="col">
-                        <label for="">Entidade</label>
-
-                        <select name="idEntidade2" class="form-control" id="idEntidade2">
-                            <option value="">Escolha a entidade</option>
-                            <?php
-                            $result_entidade2 = "SELECT * FROM entidade ORDER BY nomeFantasia";
-                            $resultado_entidade2 = mysqli_query($con, $result_entidade2);
-                            while ($row_entidade2 = mysqli_fetch_assoc($resultado_entidade2)) {
-                                if ($_SESSION['idEntidade'] == $row_entidade2['idEntidade'] || $_SESSION['idEntidade'] == 0) {
-                                    echo '<option value="' . $row_entidade2['idEntidade'] . '">' . $row_entidade2['nomeFantasia'] . '</option>';
-                                }
-                            }
-                            ?>
-                        </select>
-                    </div>
-
-
-
-
-
-                    <div class="col">
-                        <label for="">Unidade</label>
-
-                        <span id="span"></span>
-                        <select name="idUnidade2" class="form-control" id="idUnidade2">
-                            <option value="">Escolha a unidade</option>
-                        </select>
-                    </div>
-
-
-
-                    <div class="col">
-                        <label>Sala</label>
-
-                        <span id="span"></span>
-                        <select name="idSala2" required="required" class="form-control" id="idSala2">
-                            <option value="">Escolha a sala</option>
-                        </select>
-                    </div>
-                </div>
-                <br>
-                <button type="submit" name="salvarGeral" class="btn btn-primary">Visualizar</button>
-            </form>
-        </div>
-        <br>
-        <div class="d-none divUnica">
-            <form action="" method="POST">
-                <h3>Fazer movimentação única</h3>
-
-                <br>
-
-                <div class="row">
-
-                    <div class="col">
-                        <label for="">Código do patrimonio</label>
-                        <input type="text" name="codigoPatrimonio" class="form-control" id="">
-                    </div>
-                    <div class="col">
-                        <label for="">Entidade</label>
-
-                        <select name="idEntidade" class="form-control" id="idEntidade3">
-                            <option value="">Escolha a entidade</option>
-                            <?php
-                            $result_entidade = "SELECT * FROM entidade ORDER BY nomeFantasia";
-                            $resultado_entidade = mysqli_query($con, $result_entidade);
-                            while ($row_entidade = mysqli_fetch_assoc($resultado_entidade)) {
-                                if ($_SESSION['idEntidade'] == $row_entidade['idEntidade'] || $_SESSION['idEntidade'] == 0) {
-                                    echo '<option value="' . $row_entidade['idEntidade'] . '">' . $row_entidade['nomeFantasia'] . '</option>';
-                                }
-                            }
-                            ?>
-                        </select>
-                    </div>
-
-
-
-
-
-                    <div class="col">
-                        <label for="">Unidade</label>
-                        <span class="carregando3">
-                            <div class="alert alert-danger" role="alert">
-                                Ops, sem sala nessa unidade, campo obrigatório!
-                            </div>
-                        </span>
-                        <span id="span"></span>
-                        <select name="idUnidade" class="form-control" id="idUnidade3">
-                            <option value="">Escolha a unidade</option>
-                        </select>
-                    </div>
-
-
-
-                    <div class="col">
-                        <label>Sala</label>
-
-                        <span id="span"></span>
-                        <select name="idSala" required="required" class="form-control" id="idSala3">
-                            <option value="">Escolha a sala</option>
-                        </select>
-                    </div>
-                </div>
-                <br>
-                <br>
-                <button type="submit" name="salvarUnica" class="btn btn-primary">Salvar</button>
-            </form>
-        </div>
-    </div>
-    <?php if (isset($_POST['idEntidade']) && isset($_POST['salvarGeral'])) { ?>
-        <div class="painel-acoes">
-
-            <!--ambiente onde fica as tabelas e formularios-->
-            <form action="../dao/movimantar_patrimonio.php" method="post">
-                <div class="table-responsive">
-                    <table id="basic-datatables" class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Código</th>
-                                <th>Nome da Sala</th>
-                                <th>Entidade</th>
-                                <th>Patrimônio</th>
-                                <th> <input type="checkbox" id="btnAllPermission" value="1" id="exampleCheck1"></th>
-
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php while ($rows_patrimonio = mysqli_fetch_assoc($resultado_patrimonio)) { ?>
+                <!--ambiente onde fica as tabelas e formularios-->
+                <form action="../dao/movimantar_patrimonio.php" method="post">
+                    <div class="table-responsive">
+                        <table id="basic-datatables" class="table table-bordered">
+                            <thead>
                                 <tr>
-                                    <td><?php echo $rows_patrimonio['codigoPatrimonio']; ?></td>
-                                    <td><?php echo $rows_patrimonio['nomeSala']; ?></td>
-                                    <td><?php echo $rows_patrimonio['nomeFantasia']; ?></td>
-                                    <td><?php echo $rows_patrimonio['descricaoPatrimonio']; ?></td>
-                                    <td><input type="checkBox" class="check" name="movimentar[]" value="<?php echo $rows_patrimonio['idPatrimonio']; ?>" id="">
-                                        <input type="text" name="idEntidade" hidden value="<?php echo $idEntidade2; ?>" id="">
-                                        <input type="text" name="idSala" hidden value="<?php echo $idSala2; ?>" id="">
-                                        <input type="text" name="idUnidade" hidden value="<?php echo $idUnidade2; ?>" id="">
-                                    </td>
+                                    <th>Código</th>
+                                    <th>Nome da Sala</th>
+                                    <th>Entidade</th>
+                                    <th>Patrimônio</th>
+                                    <th> <input type="checkbox" id="btnAllPermission" value="1" id="exampleCheck1"></th>
+
 
                                 </tr>
-                            <?php } ?>
+                            </thead>
+                            <tbody>
+                                <?php while ($rows_patrimonio = mysqli_fetch_assoc($resultado_patrimonio)) { ?>
+                                    <tr>
+                                        <td><?php echo $rows_patrimonio['codigoPatrimonio']; ?></td>
+                                        <td><?php echo $rows_patrimonio['nomeSala']; ?></td>
+                                        <td><?php echo $rows_patrimonio['nomeFantasia']; ?></td>
+                                        <td><?php echo $rows_patrimonio['descricaoPatrimonio']; ?></td>
+                                        <td><input type="checkBox" class="check" name="movimentar[]" value="<?php echo $rows_patrimonio['idPatrimonio']; ?>" id="">
+                                            <input type="text" name="idEntidade" hidden value="<?php echo $idEntidade2; ?>" id="">
+                                            <input type="text" name="idSala" hidden value="<?php echo $idSala2; ?>" id="">
+                                            <input type="text" name="idUnidade" hidden value="<?php echo $idUnidade2; ?>" id="">
+                                        </td>
 
-                        </tbody>
-                    </table>
-                    <br>
-                    <input type="password" required class="form-control" name="senha_validacao" id="">
-                    <br>
-                    <center> <button type="submit" class="btn btn-primary">Movimentar</button></center>
-            </form>
-        </div>
-</div>
-</div>
+                                    </tr>
+                                <?php } ?>
+
+                            </tbody>
+                        </table>
+                        <br>
+                        <input type="password" required class="form-control" name="senha_validacao" id="">
+                        <br>
+                        <center> <button type="submit" class="btn btn-primary">Movimentar</button></center>
+                </form>
+            </div>
+    </div>
+    </div>
 
 
-</main>
-</div>
+    </main>
+    </div>
 
 <?php } ?>
 
@@ -365,3 +369,9 @@ if (isset($_POST['salvarUnica'])) {
         });
     });
 </script>
+
+<?php } else { ?>
+    <script>
+        window.location = "../index.php";
+    </script>
+<?php }

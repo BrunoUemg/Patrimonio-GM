@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 include_once "sidebar.php";
 
@@ -9,148 +9,126 @@ INNER JOIN subtipo U ON U.idSubtipo = P.idSubtipo INNER JOIN unidade I ON I.idUn
 $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
 ?>
 <style type="text/css">
-			.carregando{
-			
-				display:none;
-			}
-      .carregando2{
-			
-      display:none;
-    }
-		</style>
+  .carregando {
+
+    display: none;
+  }
+
+  .carregando2 {
+
+    display: none;
+  }
+</style>
 
 
+<?php if ($linha_usu['baixadosPatrimonio'] == 1 || $linha_usu['master'] == 1) { ?>
+  <div class="main-content">
+    <div class="panel-row">
+      <?php if ($linha_usu['cadastrarPatrimonio'] == 1 || $linha_usu['master'] == 1) { ?>
+        <button class="btn-panel" type="button" onclick="window.location.href = 'cadastrar_patrimonio.php'">Cadastrar Patrimônio</button>
+      <?php }
+      if ($linha_usu['editarPatrimonio'] == 1 || $linha_usu['master'] == 1) { ?>
+        <button class="btn-panel" type="button" onclick="window.location.href = 'gerenciar_patrimonio.php'">Voltar ao gerenciamento</button>
+      <?php } ?>
 
-<div class="main-content">
-              <div class="panel-row">
-                  <button class="btn-panel" type="button" onclick="window.location.href = 'cadastrar_patrimonio.php'">Cadastrar Patrimônio</button>
-                  <button class="btn-panel" type="button" onclick="window.location.href = 'gerenciar_patrimonio.php'">Voltar ao gerenciamento</button>
-                  
-              </div>
-              <div class="painel-acoes">
-              <?php include_once("../dao/conexao.php"); 
-				if(!empty($_SESSION['msg'])){
-					echo $_SESSION['msg'];
-					unset($_SESSION['msg']);
-				}
-			?>
-                    <!--ambiente onde fica as tabelas e formularios-->
-                <div class="table-responsive">
-                <table id="basic-datatables" class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Descrição</th>
-                            <th>Código Patrimonio</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php while($rows_patrimonio = mysqli_fetch_assoc($resultado_patrimonio)){ 
-                           $select_entidade_usu = mysqli_query($con, "SELECT * FROM entidade_usuario where idUsuario = $_SESSION[idUsuario] and $rows_patrimonio[idEntidade]");
-                           if (mysqli_num_rows($select_entidade_usu) > 0 || $linha_usu['master'] == 1) {
-                        $result_patrimonioBaixado = mysqli_query($con, "SELECT * FROM patrimonio_baixado where idPatrimonio = $rows_patrimonio[idPatrimonio]");
-
-                        if(mysqli_num_rows($result_patrimonioBaixado) < 1){
-                        
-                        ?>
-                       
-                        
-                       
-                        <tr>
-                        <td><?php echo $rows_patrimonio['descricaoPatrimonio']; ?></td>
-                            <td><?php echo $rows_patrimonio['codigoPatrimonio']; ?></td>
-                           
-                            <td>
-                            <a class="btn btn-primary" data-bs-toggle="modal" href="#finalizar<?php echo $rows_patrimonio['idPatrimonio']; ?>" role="button"><i class="fa fa-check"></i></a>
-                            <a class="btn btn-primary" data-bs-toggle="modal" target="_blank" href="<?php echo '../foto_patrimonio/'. $rows_patrimonio['fotoPatrimonio']; ?>" role="button">Foto</a>
-                            <a class="btn btn-primary" data-bs-toggle="modal" target="_blank" href="<?php echo '../nota_fiscal/'. $rows_patrimonio['comprovanteFiscal']; ?>" role="button">Nota fiscal</a>
-                            
-                            <?php  echo "<a  class='btn btn-danger' title='Excluir' href='../funcoes/imprimir_historico_movimentacoes.php?idPatrimonio=" .$rows_patrimonio['idPatrimonio']. "'>"?> Histórico<?php echo "</a>";  ?>
-                            
-                            
-                            
-                            
-                            <div class="modal fade" id="finalizar<?php echo $rows_patrimonio['idPatrimonio']; ?>" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                            <div class="modal-dialog modal-fullscreen-sm-down">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalToggleLabel">Finalizar</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                <form action="../dao/envio_finalizacao_baixa.php" method="POST"  enctype="multipart/form-data">
-
-                                <center><h4>Finalizar baixa do patrimônio</h4></center>
-                             
-
-                               
-                               
-                                <div class="col">
-                                <input type="text" hidden readOnly name="idPatrimonio" value="<?php echo $rows_patrimonio['idPatrimonio']; ?>">
-                                <label for="">Descrição</label>
-                                <input type="text" class="form-control"  required="required" readOnly name="descricaoPatrimonio" value="<?php echo $rows_patrimonio['descricaoPatrimonio'] ?>" id="">
-                                </div>
-                               
-                                <div class="col">
-                                <label for="">Código do patrimonio</label>
-                                <input type="text" class="form-control" required="required" readOnly  name="codigoPatrimonio" value="<?php echo $rows_patrimonio['codigoPatrimonio'] ?>" id="">
-                                </div>
-                                <hr>
-                                <div class="col">
-                                <label for="">Declaração de baixa</label>
-                                <input type="file" class="form-control" required="required"  name="comprovanteBaixa">
-                                <label for="">Senha para validação</label>
-                                <input type="password" class="form-control" required="required"  name="senha_validacao">
-                                <input type="checkBox" required name="check" value="check" id=""> <label for=""> <p> Confirmo a baixa desse patrimônio.</p></label>
-                                </div>
-
-                              
-                             
-                                
-                                <br>
-
-                                <input type="submit" class="btn btn-success" value="Confirmar">
-                                </div> 
-                                </form>
-    
-                           
-                                
-                            </div>
-                            </div>
-
-                           
-
-
-                            
-                            </td>
-
-
-                            </td>
-
-
-
-
-
-
-                        </tr>
-
-
-
-            
-                      <?php } } }?>
-                    </tbody>
-                </table>
-                </div>
-              </div>
-            </div>
-        </main>
     </div>
+    <div class="painel-acoes">
+      <?php include_once("../dao/conexao.php");
+      if (!empty($_SESSION['msg'])) {
+        echo $_SESSION['msg'];
+        unset($_SESSION['msg']);
+      }
+      ?>
+      <!--ambiente onde fica as tabelas e formularios-->
+      <div class="table-responsive">
+        <table id="basic-datatables" class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Descrição</th>
+              <th>Código Patrimonio</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php while ($rows_patrimonio = mysqli_fetch_assoc($resultado_patrimonio)) {
+              $select_entidade_usu = mysqli_query($con, "SELECT * FROM entidade_usuario where idUsuario = $_SESSION[idUsuario] and $rows_patrimonio[idEntidade]");
+              if (mysqli_num_rows($select_entidade_usu) > 0 || $linha_usu['master'] == 1) {
+                $result_patrimonioBaixado = mysqli_query($con, "SELECT * FROM patrimonio_baixado where idPatrimonio = $rows_patrimonio[idPatrimonio]");
+
+                if (mysqli_num_rows($result_patrimonioBaixado) < 1) {
+            ?>
+                  <tr>
+                    <td><?php echo $rows_patrimonio['descricaoPatrimonio']; ?></td>
+                    <td><?php echo $rows_patrimonio['codigoPatrimonio']; ?></td>
+                    <td>
+                      <?php if ($linha_usu['baixaPatrimonio'] == 1 || $linha_usu['master'] == 1) { ?>
+                        <a class="btn btn-primary" data-bs-toggle="modal" href="#finalizar<?php echo $rows_patrimonio['idPatrimonio']; ?>" role="button"><i class="fa fa-check"></i></a>
+                      <?php }
+                      if ($linha_usu['visualizarFotoPatrimonio'] == 1 || $linha_usu['master'] == 1) { ?>
+                        <a class="btn btn-primary" data-bs-toggle="modal" target="_blank" href="<?php echo '../foto_patrimonio/' . $rows_patrimonio['fotoPatrimonio']; ?>" role="button">Foto</a>
+                      <?php }
+                      if ($linha_usu['visualizarNotaFiscal'] == 1 || $linha_usu['master'] == 1) { ?>
+                        <a class="btn btn-primary" data-bs-toggle="modal" target="_blank" href="<?php echo '../nota_fiscal/' . $rows_patrimonio['comprovanteFiscal']; ?>" role="button">Nota fiscal</a>
+                      <?php } ?>
+                      <?php if ($linha_usu['master'] == 1) {
+                        echo "<a  class='btn btn-danger' title='Excluir' href='../funcoes/imprimir_historico_movimentacoes.php?idPatrimonio=" . $rows_patrimonio['idPatrimonio'] . "'>" ?> Histórico<?php echo "</a>";
+                                                                                                                                                                                                  } ?>
+                        <div class="modal fade" id="finalizar<?php echo $rows_patrimonio['idPatrimonio']; ?>" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                          <div class="modal-dialog modal-fullscreen-sm-down">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalToggleLabel">Finalizar</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <form action="../dao/envio_finalizacao_baixa.php" method="POST" enctype="multipart/form-data">
+                                  <center>
+                                    <h4>Finalizar baixa do patrimônio</h4>
+                                  </center>
+                                  <div class="col">
+                                    <input type="text" hidden readOnly name="idPatrimonio" value="<?php echo $rows_patrimonio['idPatrimonio']; ?>">
+                                    <label for="">Descrição</label>
+                                    <input type="text" class="form-control" required="required" readOnly name="descricaoPatrimonio" value="<?php echo $rows_patrimonio['descricaoPatrimonio'] ?>" id="">
+                                  </div>
+                                  <div class="col">
+                                    <label for="">Código do patrimonio</label>
+                                    <input type="text" class="form-control" required="required" readOnly name="codigoPatrimonio" value="<?php echo $rows_patrimonio['codigoPatrimonio'] ?>" id="">
+                                  </div>
+                                  <hr>
+                                  <div class="col">
+                                    <label for="">Declaração de baixa</label>
+                                    <input type="file" class="form-control" required="required" name="comprovanteBaixa">
+                                    <label for="">Senha para validação</label>
+                                    <input type="password" class="form-control" required="required" name="senha_validacao">
+                                    <input type="checkBox" required name="check" value="check" id=""> <label for="">
+                                      <p> Confirmo a baixa desse patrimônio.</p>
+                                    </label>
+                                  </div>
+                                  <br>
+                                  <input type="submit" class="btn btn-success" value="Confirmar">
+                              </div>
+                              </form>
+                            </div>
+                          </div>
+                    </td>
+                    </td>
+                  </tr>
+            <?php }
+              }
+            } ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  </main>
+  </div>
 
 
-   
-  
 
-<script>
+
+
+  <script>
     $(document).ready(function() {
       $('#basic-datatables').DataTable({
         "language": {
@@ -179,3 +157,9 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
       });
     });
   </script>
+
+<?php } else { ?>
+  <script>
+    window.location = "../index.php";
+  </script>
+<?php }
