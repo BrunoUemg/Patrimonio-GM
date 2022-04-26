@@ -3,7 +3,7 @@
 include_once "sidebar.php";
 
 ?>
-<?php if ($linha_usu['editarSala'] == 1 || $linha_usu['master'] == 1) { ?>
+<?php if ($linha_usu['editarSala'] == 1 || $linha_usu['cadastrarSala'] == 1 || $linha_usu['master'] == 1) { ?>
     <div class="main-content">
         <div class="panel-row">
             <?php if ($linha_usu['cadastrarSala'] == 1 || $linha_usu['master'] == 1) { ?>
