@@ -8,7 +8,7 @@ if(!empty($_FILES["fotoPatrimonio"]["name"])){
     $pasta_arquivo = "../foto_patrimonio/";
     
   
-    $formatos = array("png","jpeg","jpg","pdf","PNG","JPEG","JPG");
+    $formatos = array("png","jpeg","jpg","pdf","PNG","JPEG","JPG","pdf","PDF");
     $extensao = pathinfo($_FILES['fotoPatrimonio']['name'], PATHINFO_EXTENSION);
   
     if(in_array($extensao, $formatos)){
@@ -17,14 +17,11 @@ if(!empty($_FILES["fotoPatrimonio"]["name"])){
       $arquivo = "fotoPatrimonio-".$idPatrimonio.".".$extensao;
   
       if(move_uploaded_file($temporario, $pasta.$arquivo)){
-        $sql = "UPDATE patrimonio SET fotoPatrimonio = '$arquivo' where idPatrimonio = '$idPatrimonio'"; 
+        $con->query("UPDATE patrimonio SET fotoPatrimonio = '$arquivo' where idPatrimonio = '$idPatrimonio'"); 
         $_SESSION['msg'] = '<div class="alert alert-success" role="alert">Foto alterada com sucesso!</div>';
         header("Location: ../view/consultar_patrimonio.php");
         exit();
       }
     }
-    if($con->query($sql)=== true){ 
-     
-    } else {
-         echo "Erro para inserir: " . $con->error; }
+    
   }
