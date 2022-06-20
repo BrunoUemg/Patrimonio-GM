@@ -14,6 +14,12 @@ include_once "sidebar.php";
                 <button class="btn-panel" type="button" onclick="window.location.href = 'movimentacao_patrimonio.php'">Movimentações</button>
             <?php } ?>
         </div>
+        <div class="panel-row">
+            <?php if ($linha_usu['master'] == 1) { ?>
+                <button class="btn-panel" type="button" onclick="window.location.href = 'relatorio_geral_patrimonio.php'">Patrimônio geral</button>
+            <?php } ?>
+         
+        </div>
        
         <div class="painel-acoes">
             <div class="alert alert-success" role="alert">

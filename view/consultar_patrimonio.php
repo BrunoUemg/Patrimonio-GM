@@ -81,9 +81,35 @@ $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
                     <?php if ($linha_usu['master'] == 1) {
                       echo "<a  class='btn btn-danger' title='Excluir' href='../funcoes/imprimir_historico_movimentacoes.php?idPatrimonio=" . $rows_patrimonio['idPatrimonio'] . "'>" ?> Histórico<?php echo "</a>";
                                                                                                                                                                                                 } ?>
+                      <?php if ($linha_usu['master'] == 1) { ?>
+                        <a class="btn btn-primary" data-bs-toggle="modal" title="Editar NF" href="#alterarNF<?php echo $rows_patrimonio['idPatrimonio']; ?>" role="button"><i class="fa fa-edit"></i>NF</a><?php } ?>
 
 
 
+                      <div class="modal fade" id="alterarNF<?php echo $rows_patrimonio['idPatrimonio']; ?>" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalToggleLabel">Alterar NF</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <form action="../dao/envio_alterar_nf.php" enctype="multipart/form-data" method="POST">
+
+                                <input type="text" hidden name="idPatrimonio" value="<?php echo $rows_patrimonio['idPatrimonio']; ?>">
+                                <label for="">Alterar</label>
+                                <input type="file" class="form-control" required="required" name="arquivoNF" id="">
+                               
+
+                            </div>
+                            <div class="modal-footer">
+                              <input type="submit" class="btn btn-success" value="Salvar">
+                              <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Fechar</button>
+                            </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
 
                       <div class="modal fade" id="alterar<?php echo $rows_patrimonio['idPatrimonio']; ?>" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
                         <div class="modal-dialog modal-fullscreen">
