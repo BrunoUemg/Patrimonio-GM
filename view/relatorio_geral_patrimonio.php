@@ -9,7 +9,7 @@ if (isset($_POST['idEntidade'])) {
     $idEntidade = $_POST['idEntidade'];
 
     $result_patrimonio = "SELECT * FROM patrimonio P INNER JOIN sala S ON S.idSala = P.idSala 
-INNER JOIN entidade E ON E.idEntidade = P.idEntidade INNER JOIN unidade U ON E.idEntidade = U.idEntidade where P.idEntidade = '$idEntidade' and P.idStatus != 2";
+INNER JOIN entidade E ON E.idEntidade = P.idEntidade INNER JOIN unidade U ON U.idUnidade = S.idUnidade  where P.idEntidade = '$idEntidade' and P.idStatus != 2 group by P.idPatrimonio";
     $resultado_patrimonio = mysqli_query($con, $result_patrimonio);
 }
 ?>
