@@ -8,7 +8,7 @@ if (isset($_POST['codigoPatrimonio'])) {
     $codigoPatrimonio = $_POST['codigoPatrimonio'];
 
     $select_patrimonio = mysqli_query($con, "SELECT * FROM patrimonio P INNER JOIN sala S ON S.idSala = P.idSala
-    INNER JOIN entidade E on E.idEntidade = P.idEntidade INNER JOIN unidade U ON U.idEntidade = E.idEntidade where P.codigoPatrimonio = '$codigoPatrimonio'");
+    INNER JOIN entidade E on E.idEntidade = P.idEntidade INNER JOIN unidade U ON U.idUnidade = S.idUnidade where P.codigoPatrimonio = '$codigoPatrimonio'");
     $resultPatrimonio = mysqli_fetch_array($select_patrimonio);
 }
 

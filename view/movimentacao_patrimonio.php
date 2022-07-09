@@ -37,7 +37,7 @@ if (isset($_POST['salvarUnica'])) {
             idUnidade)VALUES('$data_hoje', '$hora', 'Movimentou o patrimônio', '$_SESSION[idUsuario]', 
             '$idPatrimonio', '$idSala', '$idEntidade', '$idUnidade')");
 
-    $_SESSION['msg'] = '<div class="alert alert-success" role="alert">Movimenta com sucesso!</div>';
+    $_SESSION['msg'] = '<div class="alert alert-success" role="alert">Movimentação feita com sucesso!</div>';
     echo "<script>window.location='movimentacao_patrimonio.php'</script>";
     exit();
 }
@@ -341,8 +341,8 @@ if (isset($_POST['salvarUnica'])) {
         $('#basic-datatables').DataTable({
 
             lengthMenu: [
-                [10, 25, 50, -1],
-                ['10 linhas', '25 linhas', '50 linhas', 'Mostrar tudo']
+                [-1, 10, 25, 50],
+                ['Mostrar tudo','10 linhas', '25 linhas', '50 linhas']
             ],
 
             "language": {
