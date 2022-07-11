@@ -4,15 +4,31 @@
 
 include_once "../dao/conexao.php";
 
-$idPatrimonio = $_GET["idPatrimonio"];
+$idPatrimonio = $_POST["idPatrimonio"];
+
+
+if (!empty($_FILES["fotoPatrimonio"]["name"])) {
+
+  $formatos = array("png", "jpeg", "jpg", "pdf", "PNG", "JPEG", "JPG");
+  $extensao = pathinfo($_FILES['fotoPatrimonio']['name'], PATHINFO_EXTENSION);
+
+  if (in_array($extensao, $formatos)) {
+    $pasta = "../foto_patrimonio/";
+    $temporario = $_FILES['fotoPatrimonio']['tmp_name'];
+    $arquivo = uniqid() . "." . $extensao;
+
+    if (move_uploaded_file($temporario, $pasta . $arquivo)) {
+      $con->query("INSERT INTO patrimocio_baixado (idPatrimonio,fotoPatrimonio)VALUES('$idPatrimonio','$arquivo')");
+    }
+  }
+}
 
 
 
 
 
-
-$sqlPatrimonio = "SELECT * FROM patrimonio where idPatrimonio = '$idPatrimonio'";
-$res = $con-> query($sqlPatrimonio);
+$sqlPatrimonio = "SELECT * FROM patrimonio P INNER JOIN sala S ON S.idSala = P.idSala INNER JOIN entidade E ON E.idEntidade = P.idEntidade INNER JOIN unidade U on U.idUnidade = S.idUnidade where P.idPatrimonio = '$idPatrimonio'";
+$res = $con->query($sqlPatrimonio);
 $linha_patrimonio = $res->fetch_assoc();
 
 
@@ -21,30 +37,32 @@ $res = $con->query($result_patrimonio);
 $linha2 = $res->fetch_assoc();
 
 $descricaoPatrimonio = $linha_patrimonio['descricaoPatrimonio'];
-  
+
 $con->query("UPDATE patrimonio set idStatus = 2 where idPatrimonio = '$idPatrimonio'");
-  
-  
-  setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-  date_default_timezone_set('America/Sao_Paulo');
-  session_start();
-  $data_hoje = date("d/m/Y");
-  $data_hojeEua = date("Y-m-d");
-  $hora_gerada = date("H:i:s");
-  $sql_usuario = "SELECT * FROM usuario where idUsuario = $_SESSION[idUsuario]";
-  $res = $con->query($sql_usuario);
-  $linha_usuario = $res->fetch_assoc();
-  $con->query("INSERT INTO historico_movimentacoes (dataAlteracao, horaAlteracao, acao, idUsuario, idPatrimonio, idSala, idEntidade, 
+
+
+
+
+setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+date_default_timezone_set('America/Sao_Paulo');
+session_start();
+$data_hoje = date("d/m/Y");
+$data_hojeEua = date("Y-m-d");
+$hora_gerada = date("H:i:s");
+$sql_usuario = "SELECT * FROM usuario where idUsuario = $_SESSION[idUsuario]";
+$res = $con->query($sql_usuario);
+$linha_usuario = $res->fetch_assoc();
+$con->query("INSERT INTO historico_movimentacoes (dataAlteracao, horaAlteracao, acao, idUsuario, idPatrimonio, idSala, idEntidade, 
       idUnidade)VALUES('$data_hojeEua', '$hora_gerada', 'Patrimônio em baixa pendente', '$linha_usuario[idUsuario]', 
       '$idPatrimonio', '$linha_patrimonio[idSala]', '$linha_patrimonio[idEntidade]', '$linha2[idUnidade]')");
 
-  use Dompdf\Dompdf;
-  
-  // include autoloader
-  require_once '../funcoes/dompdf/autoload.inc.php';
-  
-  $dompdf = new Dompdf();
-  $dompdf->loadHtml(' <div align="right"> </div>
+use Dompdf\Dompdf;
+
+// include autoloader
+require_once '../funcoes/dompdf/autoload.inc.php';
+
+$dompdf = new Dompdf();
+$dompdf->loadHtml(' <div align="right"> </div>
   
   
   <center><h2><u>Declaração de baixa do patrimonio </u></h2></center> 
@@ -58,7 +76,23 @@ $con->query("UPDATE patrimonio set idStatus = 2 where idPatrimonio = '$idPatrimo
 Declaração que o patrimônio ' . $linha_patrimonio['descricaoPatrimonio'] . ' foi baixado, por estar em status de desuso. Este arquivo deve ser assinado e inserido no sistema para finalizar a baixa.
 </p>
 
-<h4>Frutal, '.$data_hoje.'</h4>
+<h3>Dados do patrimônio:</h3>
+<table style="width: 100%;" border="1">
+<tbody>
+  <tr>
+    <td style="width: 25.0000%;">Código: ' . $linha_patrimonio['codigoPatrimonio'] . '</td>
+    <td style="width: 25.0000%;">Sala: ' . $linha_patrimonio['nomeSala'] . ' </td>
+    <td style="width: 25.0000%;">Entidade: ' . $linha_patrimonio['nomeFantasia'] . '</td>
+    <td style="width: 25.0000%;">Unidade: ' . $linha_patrimonio['nomeUnidade'] . '</td>
+  </tr>
+
+  </tbody>
+  </table>
+
+<div><img src="../foto_patrimonio/' . $arquivo . '" width="500" /></div>
+  
+
+<h4>Frutal, ' . $data_hoje . '</h4>
 <br>
 <br>
 
@@ -115,7 +149,7 @@ Declaração que o patrimônio ' . $linha_patrimonio['descricaoPatrimonio'] . ' 
 
    
 
-  <p>Documento gerado por '.$linha_usuario['nomeUsuario'].' em '.$data_hoje.' às '.$hora_gerada.'.</p>
+  <p>Documento gerado por ' . $linha_usuario['nomeUsuario'] . ' em ' . $data_hoje . ' às ' . $hora_gerada . '.</p>
   
   
           
@@ -125,18 +159,20 @@ Declaração que o patrimônio ' . $linha_patrimonio['descricaoPatrimonio'] . ' 
           
   
   ');
-  
-  // (Optional) Setup the paper size and orientation
-  $dompdf->setPaper('A4', 'portrait');
-  ob_clean();
-  // Render the HTML as PDF
-  $dompdf->render();
-  
-  // Output the generated PDF to Browser
-  $dompdf->stream('Declaração de baixa.pdf',
-  array ("Attachment" =>true //para realizar o download somente alterar para true
+
+// (Optional) Setup the paper size and orientation
+$dompdf->setPaper('A4', 'portrait');
+ob_clean();
+// Render the HTML as PDF
+$dompdf->render();
+
+// Output the generated PDF to Browser
+$dompdf->stream(
+  'Declaração de baixa.pdf',
+  array(
+    "Attachment" => true //para realizar o download somente alterar para true
   )
-  );
+);
 
 
-  ?>
+?>
