@@ -85,7 +85,7 @@ if (isset($_POST['salvarUnica'])) {
                                 $result_entidade = "SELECT * FROM entidade ORDER BY nomeFantasia";
                                 $resultado_entidade = mysqli_query($con, $result_entidade);
                                 while ($row_entidade = mysqli_fetch_assoc($resultado_entidade)) {
-                                    $select_entidade_usu = mysqli_query($con, "SELECT * FROM entidade_usuario where idUsuario = $_SESSION[idUsuario] and $row_entidade2[idEntidade]");
+                                    $select_entidade_usu = mysqli_query($con, "SELECT * FROM entidade_usuario where idUsuario = $_SESSION[idUsuario] and idEntidade = $row_entidade[idEntidade]");
                                     if (mysqli_num_rows($select_entidade_usu) > 0 || $linha_usu['master'] == 1) {
                                         echo '<option value="' . $row_entidade['idEntidade'] . '">' . $row_entidade['nomeFantasia'] . '</option>';
                                     }
@@ -146,7 +146,7 @@ if (isset($_POST['salvarUnica'])) {
                                 $result_entidade2 = "SELECT * FROM entidade ORDER BY nomeFantasia";
                                 $resultado_entidade2 = mysqli_query($con, $result_entidade2);
                                 while ($row_entidade2 = mysqli_fetch_assoc($resultado_entidade2)) {
-                                    $select_entidade_usu2 = mysqli_query($con, "SELECT * FROM entidade_usuario where idUsuario = $_SESSION[idUsuario] and $row_entidade2[idEntidade]");
+                                    $select_entidade_usu2 = mysqli_query($con, "SELECT * FROM entidade_usuario where idUsuario = $_SESSION[idUsuario] and idEntidade = $row_entidade2[idEntidade]");
                                         if (mysqli_num_rows($select_entidade_usu2) > 0 || $linha_usu['master'] == 1) {
                                         echo '<option value="' . $row_entidade2['idEntidade'] . '">' . $row_entidade2['nomeFantasia'] . '</option>';
                                     }

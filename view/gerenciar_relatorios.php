@@ -18,7 +18,7 @@ include_once "sidebar.php";
             <?php if ($linha_usu['master'] == 1) { ?>
                 <button class="btn-panel" type="button" onclick="window.location.href = 'relatorio_geral_patrimonio.php'">Patrimônio geral</button>
             <?php } ?>
-         
+            <button class="btn-panel" type="button" onclick="window.location.href = 'identificar_nf.php'">Identificar NF</button>
         </div>
        
         <div class="painel-acoes">
